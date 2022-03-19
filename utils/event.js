@@ -3,8 +3,10 @@ import { format } from "date-fns";
 // Google Map API Key
 const GOOGLE_MAP_API_KEY = process.env.GOOGLE_MAP_API_KEY;
 
-export const getMapUrl = (address, place_id) => {
-  return `https://www.google.com/maps/search/?api=1&query=ajmerigate&query_place_id=${place_id}`;
+export const getMapUrl = ({ address, place_id }) => {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    address
+  )}&query_place_id=${place_id}`;
 };
 
 export const getEmbedMapUrl = (place_id) => {

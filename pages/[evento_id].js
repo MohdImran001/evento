@@ -1,8 +1,9 @@
-import Error from "next/error";
+import { useState } from "react";
 
-import { CalendarIcon } from "@chakra-ui/icons";
-import { BadgeCheckIcon } from "@heroicons/react/solid";
-import { LocationMarkerIcon, MailIcon } from "@heroicons/react/outline";
+import * as Yup from "yup";
+import Error from "next/error";
+import { Formik, Form } from "formik";
+
 import {
   Box,
   Image,
@@ -12,20 +13,21 @@ import {
   Spacer,
   Center,
   Icon,
-  Button,
   AspectRatio,
 } from "@chakra-ui/react";
+import { CalendarIcon } from "@chakra-ui/icons";
+import { LocationMarkerIcon, MailIcon } from "@heroicons/react/outline";
 
-// Custom Components
-import EmailField from "../components/forms/Email";
-import NameField from "../components/forms/Name";
+import RegistrationForm from "../components/event/Form";
 
 // DB Connection and Models
-import dbConnect from "../lib/dbConnect";
 import Event from "../models/Event";
+import dbConnect from "../lib/dbConnect";
 import { formatEventData, getEmbedMapUrl, getMapUrl } from "../utils/event";
 
 export default function Evento({ event, error }) {
+  const [registered, setRegistered] = useState(false);
+
   if (error) {
     return <Error statusCode={error.statusCode} title={error.message} />;
   }
@@ -86,7 +88,7 @@ export default function Evento({ event, error }) {
               ml="6px"
               mt="-2px"
             >
-              {event?.location?.address}
+              <a href={getMapUrl(event.location)}>{event?.location?.address}</a>
             </Text>
           </Box>
         </Flex>
@@ -111,18 +113,28 @@ export default function Evento({ event, error }) {
           <br />
           {/* Form Container */}
           <Box p="1rem" border="1px" borderColor="#EEEEEE" maxW="30rem">
-            <NameField />
-            <EmailField />
-            <Button
-              leftIcon={
-                <Icon as={BadgeCheckIcon} color="#FFFFFF" w={5} h={5} />
-              }
-              colorScheme="red"
-              variant="solid"
-              mt="2rem"
+            <Formik
+              initialValues={{
+                name: "",
+                email: "",
+              }}
+              validationSchema={Yup.object({
+                name: Yup.string()
+                  .max(15, "Must be 15 characters or less")
+                  .required("Required"),
+                email: Yup.string()
+                  .email("Invalid email address`")
+                  .required("Required"),
+              })}
+              onSubmit={async (values) => {
+                await new Promise((r) => setTimeout(r, 1000));
+                setRegistered(true);
+              }}
             >
-              Register
-            </Button>
+              <Form>
+                <RegistrationForm isRegistered={registered} />
+              </Form>
+            </Formik>
           </Box>
         </Box>
 
@@ -184,6 +196,12 @@ export default function Evento({ event, error }) {
               alt="demo"
             />
           </AspectRatio>
+          <Box mt="1rem">
+            <Icon as={LocationMarkerIcon} color="red.500" w={5} h={5} />
+            <Text fontSize={{ base: "sm" }} color="red.500" as="span" ml="6px">
+              <a href={getMapUrl(event.location)}>{event?.location?.address}</a>
+            </Text>
+          </Box>
         </Box>
       </Box>
       <br />

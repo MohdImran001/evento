@@ -23,6 +23,15 @@ const UserSchema = new mongoose.Schema({
       ref: "Event",
     },
   ],
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    immutable: true,
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);
