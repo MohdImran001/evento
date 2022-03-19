@@ -24,6 +24,7 @@ import RegistrationForm from "../components/event/Form";
 import Event from "../models/Event";
 import dbConnect from "../lib/dbConnect";
 import { formatEventData, getEmbedMapUrl, getMapUrl } from "../utils/event";
+import registerAttendee from "../api/event/register-attendee";
 
 export default function Evento({ event, error }) {
   const [registered, setRegistered] = useState(false);
@@ -123,11 +124,11 @@ export default function Evento({ event, error }) {
                   .max(15, "Must be 15 characters or less")
                   .required("Required"),
                 email: Yup.string()
-                  .email("Invalid email address`")
+                  .email("Oops! There is a mistake in the email")
                   .required("Required"),
               })}
               onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 1000));
+                const message = await registerAttendee(values, event._id);
                 setRegistered(true);
               }}
             >
@@ -211,13 +212,12 @@ export default function Evento({ event, error }) {
 }
 
 export async function getServerSideProps(context) {
-  // Wait for the DB Connection
-  await dbConnect();
-
   const { evento_id } = context.params;
   let event = null;
 
   try {
+    await dbConnect();
+
     event = await Event.findById(evento_id)
       .populate("hosts", "name email profilePictureUrl")
       .lean();
