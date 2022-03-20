@@ -18,13 +18,21 @@ import {
 import { CalendarIcon } from "@chakra-ui/icons";
 import { LocationMarkerIcon, MailIcon } from "@heroicons/react/outline";
 
-import RegistrationForm from "../components/event/Form";
+import RegistrationForm from "../components/event/RegistrationForm";
 
 // DB Connection and Models
-import Event from "../models/Event";
-import dbConnect from "../lib/dbConnect";
-import { formatEventData, getEmbedMapUrl, getMapUrl } from "../utils/event";
-import registerAttendee from "../api/event/register-attendee";
+import Event from "../core/db/models/Event";
+import dbConnect from "../core/db/connect";
+
+// Core utilitites for formatting event data
+import {
+  getMapUrl,
+  getEmbedMapUrl,
+  formatEventData,
+} from "../core/utils/event";
+
+// Service to register attendee for the event
+import registerAttendee from "../lib/event/api/register-attendee";
 
 export default function Evento({ event, error }) {
   const [registered, setRegistered] = useState(false);

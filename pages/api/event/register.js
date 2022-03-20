@@ -1,5 +1,5 @@
-import dbConnect from "../../../lib/dbConnect";
-import Attendee from "../../../models/Attendee";
+import dbConnect from "../../../core/db/connect";
+import Attendee from "../../../core/db/models/Attendee";
 
 export default async function handler(req, res) {
   const { eventId, name, email } = req.body;
@@ -21,6 +21,7 @@ export default async function handler(req, res) {
 
     attendee.events.push(eventId);
     await attendee.save();
+
     res.status(201).json({
       message:
         "You've been successfully registered for the event. We will send you a confirmation email.",

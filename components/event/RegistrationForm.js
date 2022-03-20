@@ -6,8 +6,8 @@ import { StarIcon } from "@chakra-ui/icons";
 
 import { BadgeCheckIcon } from "@heroicons/react/solid";
 
-import NameField from "../forms/Name";
-import EmailField from "../forms/Email";
+import NameField from "../../core/elements/form/Name";
+import EmailField from "../../core/elements/form/Email";
 
 const RegistrationForm = ({ isRegistered }) => {
   const { isSubmitting } = useFormikContext();
