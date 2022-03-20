@@ -6,7 +6,6 @@ export default async function handler(req, res) {
 
   try {
     await dbConnect();
-
     let attendee = await Attendee.findOne({ email: email });
 
     if (attendee && attendee.events.indexOf(eventId) >= 0) {
