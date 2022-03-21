@@ -3,7 +3,6 @@ import { useFormikContext } from "formik";
 
 import { Button, Icon, Text } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
-
 import { BadgeCheckIcon } from "@heroicons/react/solid";
 
 import NameField from "../../core/elements/form/Name";
