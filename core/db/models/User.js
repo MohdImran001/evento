@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Mixed from "yup/lib/mixed";
+
+import Event from "./Event";
 
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const UserSchema = new mongoose.Schema({

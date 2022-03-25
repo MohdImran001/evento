@@ -5,7 +5,6 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export async function middleware(req) {
   const token = await getToken({ req, secret });
-  console.log("middleware - ", token);
 
   if (!token) {
     return new Response("Auth required", {
