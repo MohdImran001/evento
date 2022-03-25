@@ -19,6 +19,8 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
+import EventList from "../components/EventList";
+
 const Links = ["Dashboard"];
 
 const NavLink = ({ children }) => (
@@ -111,6 +113,7 @@ export default function App({ user }) {
 
       <Box maxW="70rem" m="2rem auto">
         Main Content Here
+        <EventList />
       </Box>
     </>
   );
