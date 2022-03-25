@@ -1,5 +1,14 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import { MongoClient } from "mongodb";
+
+import dbConnect from "../../../core/db/connect";
+import User from "../../../core/db/models/User";
+
+const uri = process.env.MONGODB_URI;
+const client = new MongoClient(uri);
+const clientPromise = client.connect();
 
 export default NextAuth({
   providers: [
@@ -8,19 +17,20 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_PROVIDER_CLIENT_SECRET,
     }),
   ],
-
-  callbacks: {
-    async jwt({ token, account }) {
-      // Persist the OAuth access_token to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token;
-      }
-      return token;
-    },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token from a provider.
-      session.accessToken = token.accessToken;
-      return session;
+  adapter: MongoDBAdapter(clientPromise),
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+  events: {
+    createUser: async ({ user }) => {
+      await dbConnect();
+      User.findByIdAndUpdate(user.id, { events: [] }, (err, doc) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+      });
     },
   },
 });

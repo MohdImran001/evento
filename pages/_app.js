@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "@fontsource/inter";
 import "@fontsource/poppins";
@@ -12,11 +14,14 @@ const theme = extendTheme({
 });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [queryClient] = useState(() => new QueryClient());
   return (
-    <SessionProvider session={session} basePath="app">
-      <ChakraProvider theme={theme}>
-        <Component {...pageProps} />
-      </ChakraProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider theme={theme}>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </QueryClientProvider>
     </SessionProvider>
   );
 }

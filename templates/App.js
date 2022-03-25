@@ -1,3 +1,5 @@
+import { signOut } from "next-auth/react";
+
 import {
   Box,
   Flex,
@@ -17,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
-const Links = ["Dashboard", "Projects", "Team"];
+const Links = ["Dashboard"];
 
 const NavLink = ({ children }) => (
   <Link
@@ -34,7 +36,7 @@ const NavLink = ({ children }) => (
   </Link>
 );
 
-export default function App() {
+export default function App({ user }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -74,7 +76,7 @@ export default function App() {
               mr={4}
               leftIcon={<AddIcon />}
             >
-              Action
+              Create an event
             </Button>
             <Menu>
               <MenuButton
@@ -84,18 +86,13 @@ export default function App() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
+                <Avatar size={"sm"} src={user?.image} />
               </MenuButton>
               <MenuList>
-                <MenuItem>Link 1</MenuItem>
-                <MenuItem>Link 2</MenuItem>
-                <MenuDivider />
-                <MenuItem>Link 3</MenuItem>
+                {/* <MenuItem>Profile</MenuItem>
+                <MenuItem>Settings</MenuItem> */}
+                {/* <MenuDivider /> */}
+                <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
           </Flex>

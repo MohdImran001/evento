@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Mixed from "yup/lib/mixed";
 
 /* PetSchema will correspond to a collection in your MongoDB database. */
 const UserSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const UserSchema = new mongoose.Schema({
     match: /.+\@.+\..+/,
     unique: true,
   },
-  profilePictureUrl: {
+  image: {
     type: String,
     default: "/avatar.png",
   },
@@ -23,14 +24,8 @@ const UserSchema = new mongoose.Schema({
       ref: "Event",
     },
   ],
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    immutable: true,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
+  emailVerified: {
+    type: Boolean,
   },
 });
 
