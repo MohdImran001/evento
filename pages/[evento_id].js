@@ -23,7 +23,7 @@ export async function getServerSideProps(context) {
   try {
     await dbConnect();
     response.eventData = await Event.findById(evento_id)
-      .populate("hosts", "name email profilePictureUrl")
+      .populate("hosts", "name email image")
       .lean();
 
     // Set 404 error when Event is not found

@@ -155,14 +155,15 @@ const EventDetails = ({ eventData: event }) => {
                   key={host._id}
                 >
                   <Image
-                    src={host?.profilePictureUrl}
+                    src={host?.image}
                     alt="avatar-image"
                     w="50px"
                     h="50px"
+                    borderRadius="full"
                   />
                   <Box ml="1rem">
                     <Text fontWeight="bold"> {host?.name}</Text>
-                    <Text fontSize="sm">{host.email}</Text>
+                    <Text fontSize="sm">{host?.email}</Text>
                   </Box>
                 </Flex>
               ))}
