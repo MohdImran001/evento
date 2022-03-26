@@ -1,7 +1,7 @@
 import Error from "next/error";
 import { getSession } from "next-auth/react";
 
-import App from "../../templates/App";
+import App from "templates/App";
 
 export default function Home({ user }) {
   if (!user) {

@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { CogIcon } from "@heroicons/react/solid";
 
-import { getLocalizedDate, getLocalizedTime } from "../../core/utils/event";
+import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 import useFetchEvents from "./useFetchEvents";
 
 const EventList = () => {

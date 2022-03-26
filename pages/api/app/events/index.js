@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 
-import dbConnect from "../../../../core/db/connect";
-import User from "../../../../core/db/models/User";
+import dbConnect from "core/db/connect";
+import User from "core/db/models/User";
 
 const secret = process.env.NEXTAUTH_SECRET;
 

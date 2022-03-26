@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 
-import EventList from "../components/EventList";
+import EventList from "components/EventList";
 
 const Links = ["Dashboard"];
 

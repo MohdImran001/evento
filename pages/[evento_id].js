@@ -1,12 +1,12 @@
 import Error from "next/error";
-import EventDetails from "../templates/EventDetails";
+import EventDetails from "templates/EventDetails";
 
 // DB Connection and Models
-import Event from "../core/db/models/Event";
-import dbConnect from "../core/db/connect";
+import Event from "core/db/models/Event";
+import dbConnect from "core/db/connect";
 
 // Core utility for formatting event data
-import { formatEventData } from "../core/utils/event";
+import { formatEventData } from "core/utils/event";
 
 export default function Evento({ eventData, error }) {
   if (error) {
