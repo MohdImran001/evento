@@ -34,3 +34,13 @@ export const formatEventData = (event) => {
     eventDate: event.eventDate.toString(),
   };
 };
+
+export const getLocalizedDate = (date) => {
+  const d = new Date(date);
+  return format(d, "PP");
+};
+
+export const getLocalizedTime = (date) => {
+  const d = new Date(date);
+  return format(d, "p");
+};

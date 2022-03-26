@@ -112,7 +112,6 @@ export default function App({ user }) {
       </Box>
 
       <Box maxW="70rem" m="2rem auto">
-        Main Content Here
         <EventList />
       </Box>
     </>
