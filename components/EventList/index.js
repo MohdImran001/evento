@@ -1,3 +1,5 @@
+import { useRouter } from "next/router";
+
 import {
   Table,
   Thead,
@@ -13,10 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { CogIcon } from "@heroicons/react/solid";
 
-import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 import useFetchEvents from "./useFetchEvents";
+import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 
 const EventList = () => {
+  const router = useRouter();
   const { isLoading, isError, events, error } = useFetchEvents();
 
   if (isError) {
@@ -57,6 +60,7 @@ const EventList = () => {
                 <Td>0</Td>
                 <Td>
                   <Button
+                    onClick={() => router.push(`/app/event/${event._id}/edit`)}
                     variant={"outline"}
                     colorScheme={"gray"}
                     size={"sm"}

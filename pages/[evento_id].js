@@ -25,19 +25,19 @@ export async function getServerSideProps(context) {
     response.eventData = await Event.findById(evento_id)
       .populate("hosts", "name email image")
       .lean();
-
-    // Set 404 error when Event is not found
-    if (!response.eventData) {
-      response.error = {
-        code: 404,
-        message: "Oops, the event you're looking for doesn't exist",
-      };
-    } else {
-      response.eventData = formatEventData(response.eventData);
-    }
   } catch (err) {
     // Set Internal error, in case of failure of request
     response.error = { code: 500, message: err.message };
+  }
+
+  // Set 404 error when Event is not found
+  if (!response.eventData) {
+    response.error = {
+      code: 404,
+      message: "Oops, the event you're looking for doesn't exist",
+    };
+  } else {
+    response.eventData = formatEventData(response.eventData);
   }
 
   // Return event data after formatting
