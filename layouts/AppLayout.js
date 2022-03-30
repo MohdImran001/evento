@@ -1,9 +1,8 @@
+import NextLink from "next/link";
 import { signOut } from "next-auth/react";
-
 import {
   Box,
   Flex,
-  Avatar,
   HStack,
   Link,
   IconButton,
@@ -19,10 +18,11 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
+import Profile from "core/elements/user/Profile";
 
-const Links = ["Dashboard"];
+const Links = [{ name: "Dashboard", to: "/app" }];
 
-const NavLink = ({ children }) => (
+const NavLink = ({ children, link }) => (
   <Link
     px={2}
     py={1}
@@ -31,15 +31,14 @@ const NavLink = ({ children }) => (
       textDecoration: "none",
       bg: useColorModeValue("gray.200", "gray.700"),
     }}
-    href={"#"}
+    href={link}
   >
     {children}
   </Link>
 );
 
-export default function AppLayout({ children, user }) {
+export default function AppLayout({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
     <>
       <Box bg="gray.100" px={4}>
@@ -66,9 +65,9 @@ export default function AppLayout({ children, user }) {
               spacing={2}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
+              <NextLink href="/app" passHref>
+                <Link>Dashboard</Link>
+              </NextLink>
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
@@ -89,7 +88,7 @@ export default function AppLayout({ children, user }) {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar size={"sm"} src={user?.image} />
+                <Profile />
               </MenuButton>
               <MenuList>
                 {/* <MenuItem>Profile</MenuItem>
