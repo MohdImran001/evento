@@ -1,6 +1,7 @@
 import dbConnect from "core/db/connect";
 import Attendee from "core/db/models/Attendee";
 
+// Add check for POST request, and validate data
 export default async function handler(req, res) {
   const { eventId, name, email } = req.body;
 
