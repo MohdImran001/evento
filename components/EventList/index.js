@@ -60,7 +60,7 @@ const EventList = () => {
                 <Td>0</Td>
                 <Td>
                   <Button
-                    onClick={() => router.push(`/app/event/${event._id}/edit`)}
+                    onClick={() => router.push(`/app/events/${event._id}/edit`)}
                     variant={"outline"}
                     colorScheme={"gray"}
                     size={"sm"}

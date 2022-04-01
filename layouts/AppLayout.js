@@ -15,10 +15,12 @@ import {
   useColorModeValue,
   Stack,
   Icon,
+  Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import Profile from "core/elements/user/Profile";
+import { useRouter } from "next/router";
 
 const Links = [{ name: "Dashboard", to: "/app" }];
 
@@ -38,6 +40,13 @@ const NavLink = ({ children, link }) => (
 );
 
 export default function AppLayout({ children }) {
+  const router = useRouter();
+  const pathsArray = router.asPath.split("/");
+  const heading =
+    pathsArray[pathsArray.length - 1] === "app"
+      ? "Your Events"
+      : "Manage Your Event";
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -109,6 +118,11 @@ export default function AppLayout({ children }) {
             </Stack>
           </Box>
         ) : null}
+      </Box>
+      <Box borderBottomWidth="1px" borderBottomColor="#eee">
+        <Heading size="sm" maxW="70rem" m="1rem auto">
+          {heading}
+        </Heading>
       </Box>
       <Box maxW="70rem" m="2rem auto">
         {children}
