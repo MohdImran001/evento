@@ -5,7 +5,12 @@ import User from "core/db/models/User";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
-// GET: All events created by the authenticated user.
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns {Array} - All events created by authenticated user
+ */
 export default async function handler(req, res) {
   try {
     await dbConnect();
