@@ -42,10 +42,7 @@ const NavLink = ({ children, link }) => (
 export default function AppLayout({ children }) {
   const router = useRouter();
   const pathsArray = router.asPath.split("/");
-  const heading =
-    pathsArray[pathsArray.length - 1] === "app"
-      ? "Events"
-      : "";
+  const heading = pathsArray[pathsArray.length - 1] === "app" ? "Events" : "";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
@@ -68,9 +65,9 @@ export default function AppLayout({ children }) {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <NextLink href="/app" passHref>
-                <Link textDecoration="none">
-                  <Heading color="green.500" size="lg">evento</Heading>
-                </Link>
+                <Heading color="green.500" size="lg" cursor="pointer">
+                  evento
+                </Heading>
               </NextLink>
             </Box>
             <HStack

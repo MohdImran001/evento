@@ -37,10 +37,25 @@ export const formatEventData = (event) => {
 
 export const getLocalizedDate = (date) => {
   const d = new Date(date);
-  return format(d, "PP");
+  return format(d, "PPPP");
 };
 
 export const getLocalizedTime = (date) => {
   const d = new Date(date);
   return format(d, "p");
+};
+
+export const getDay = (date) => {
+  const d = new Date(date);
+  return format(d, "EEEE");
+};
+
+export const getDate = (date) => {
+  const d = new Date(date);
+  return format(d, "d");
+};
+
+export const getMonth = (date) => {
+  const d = new Date(date);
+  return format(d, "MMMM");
 };

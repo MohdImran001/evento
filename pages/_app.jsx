@@ -12,8 +12,9 @@ const theme = extendTheme({
     body: "Inter, sans-serif",
   },
   colors: {
-    brand: "#1e0a3c"
-  }
+    brand: "#1e0a3c",
+    secondary: "#6f7287",
+  },
 });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {

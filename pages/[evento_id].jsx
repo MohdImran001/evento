@@ -1,5 +1,5 @@
 import Error from "next/error";
-import EventDetails from "templates/event/Details";
+import EventDetails from "templates/Event/Details";
 
 // DB Connection and Models
 import Event from "core/db/models/Event";
