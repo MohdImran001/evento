@@ -1,4 +1,4 @@
-import EventEditTemplate from "templates/event/Edit.jsx";
+import EventEditTemplate from "templates/Event/Edit";
 
 export default function Edit() {
   return <EventEditTemplate />;

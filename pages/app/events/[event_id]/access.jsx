@@ -1,4 +1,4 @@
-import EventAccessTemplate from "templates/Event/Access.jsx";
+import EventAccessTemplate from "templates/Event/Access";
 
 export default function Access() {
   return <EventAccessTemplate />;

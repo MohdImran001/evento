@@ -44,18 +44,18 @@ export default function AppLayout({ children }) {
   const pathsArray = router.asPath.split("/");
   const heading =
     pathsArray[pathsArray.length - 1] === "app"
-      ? "Your Events"
-      : "Manage Your Event";
+      ? "Events"
+      : "";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Box bg="gray.100" px={4}>
+      <Box px={4} borderBottomWidth="1px" borderBottomColor="#eee">
         <Flex
           h={16}
           alignItems={"center"}
           justifyContent={"space-between"}
-          maxW="70rem"
+          maxW="100%"
           m="0 auto"
         >
           <IconButton
@@ -67,33 +67,27 @@ export default function AppLayout({ children }) {
           />
           <HStack spacing={8} alignItems={"center"}>
             <Box>
-              <Icon as={PaperAirplaneIcon} color="green.500" w={8} h={8} />
+              <NextLink href="/app" passHref>
+                <Link textDecoration="none">
+                  <Heading color="green.500" size="lg">evento</Heading>
+                </Link>
+              </NextLink>
             </Box>
             <HStack
               as={"nav"}
               spacing={2}
               display={{ base: "none", md: "flex" }}
             >
-              <NextLink href="/app" passHref>
+              {/* <NextLink href="/app" passHref>
                 <Link>Dashboard</Link>
-              </NextLink>
+              </NextLink> */}
             </HStack>
           </HStack>
           <Flex alignItems={"center"}>
-            <Button
-              variant={"solid"}
-              colorScheme="green"
-              size={"sm"}
-              mr={4}
-              leftIcon={<AddIcon />}
-            >
-              Create an event
-            </Button>
             <Menu>
               <MenuButton
                 as={Button}
                 rounded={"full"}
-                variant={"link"}
                 cursor={"pointer"}
                 minW={0}
               >
@@ -119,11 +113,15 @@ export default function AppLayout({ children }) {
           </Box>
         ) : null}
       </Box>
-      <Box borderBottomWidth="1px" borderBottomColor="#eee">
-        <Heading size="sm" maxW="70rem" m="1rem auto">
-          {heading}
-        </Heading>
-      </Box>
+
+      {heading.length > 0 && (
+        <Box>
+          <Heading size="3xl" maxW="70rem" m="5rem auto" color="brand">
+            {heading}
+          </Heading>
+        </Box>
+      )}
+
       <Box maxW="70rem" m="2rem auto">
         {children}
       </Box>
