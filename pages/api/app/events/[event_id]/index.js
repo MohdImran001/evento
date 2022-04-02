@@ -4,10 +4,11 @@ import isAuthorized from "core/utils/authorized";
 const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
-  // Protect from unauthorized access
   const { event_id } = req.query;
   const { sub: user_id } = await getToken({ req, secret });
   const event = await isAuthorized(event_id, user_id);
+
+  // Protect from unauthorized access
   if (!event) {
     return res.status(403).json({ message: "Not Authorized" });
   }
