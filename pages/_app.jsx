@@ -11,6 +11,9 @@ const theme = extendTheme({
     heading: "Poppins, sans-serif",
     body: "Inter, sans-serif",
   },
+  colors: {
+    brand: "#1e0a3c"
+  }
 });
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
