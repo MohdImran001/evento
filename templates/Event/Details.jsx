@@ -19,7 +19,7 @@ import { LocationMarkerIcon, MailIcon } from "@heroicons/react/outline";
 import { getMapUrl, getEmbedMapUrl } from "core/utils/event";
 import registerAttendee from "lib/event/api/register-attendee";
 
-import RegistrationForm from "components/event/RegistrationForm";
+import RegistrationForm from "components/Event/RegistrationForm";
 
 const EventDetails = ({ eventData: event }) => {
   const [registered, setRegistered] = useState(false);

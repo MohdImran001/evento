@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
 import { PaperAirplaneIcon } from "@heroicons/react/solid";
-import Profile from "core/elements/user/Profile";
+import Profile from "core/elements/User/Profile";
 import { useRouter } from "next/router";
 
 const Links = [{ name: "Dashboard", to: "/app" }];

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "preserve",
     "paths": {
       "components/*": ["components/*"],
       "core/*": ["core/*"],
@@ -9,5 +10,5 @@
       "templates/*": ["templates/*"],
       "styles/*": ["styles/*"],
     },
-  }
+  },
 }
