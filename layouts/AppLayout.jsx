@@ -65,7 +65,7 @@ export default function AppLayout({ children }) {
           <HStack spacing={8} alignItems={"center"}>
             <Box>
               <NextLink href="/app" passHref>
-                <Heading color="green.500" size="lg" cursor="pointer">
+                <Heading color="brandOrange" size="lg" cursor="pointer">
                   evento
                 </Heading>
               </NextLink>

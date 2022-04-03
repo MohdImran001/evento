@@ -14,6 +14,9 @@ const theme = extendTheme({
   colors: {
     brand: "#1e0a3c",
     secondary: "#6f7287",
+    brandOrange: "rgb(240, 85, 55)",
+    brandBlue: "rgb(61, 100, 255)",
+    secondaryBlue: "rgba(61, 100, 255, 0.1)",
   },
 });
 
