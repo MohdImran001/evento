@@ -37,11 +37,11 @@ import {
   getMonth,
   copyUrl,
 } from "core/utils/event";
-import useFetchEvents from "./useFetchEvents";
+import useEvents from "./useEvents";
 
 const EventList = () => {
   const router = useRouter();
-  const { isLoading, isError, events, error } = useFetchEvents();
+  const { isLoading, isError, events, error } = useEvents();
 
   if (isError) {
     return <span>Error: {error.message}</span>;
