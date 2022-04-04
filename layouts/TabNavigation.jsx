@@ -8,6 +8,8 @@ import {
 } from "@heroicons/react/outline";
 import { Box, Flex, Text, Icon, Heading } from "@chakra-ui/react";
 
+import Header from "components/EventSettings/Header";
+
 const getUrl = (tab, pathsArray) => {
   pathsArray.splice(pathsArray.length - 1, 1, tab);
   return pathsArray.join("/");
@@ -17,23 +19,20 @@ export default function TabNavigation({ children }) {
   const router = useRouter();
   const pathsArray = router.asPath.split("/");
   const activeTab = pathsArray[pathsArray.length - 1];
-
+  const heading = "Farewell Party";
   return (
     <>
-      <Box borderBottomColor="#EEE" borderBottomWidth="1px">
-        <Box>
-          <Heading>Event Name</Heading>
-        </Box>
-        <br />
-        <br />
-
+      <Header />
+      <Box borderBottomColor="#EEE" borderBottomWidth="1px" mt="7rem">
         <Flex experimental_spaceX={5}>
           <Box
             _hover={{ bg: "gray.100", borderTopRadius: 10 }}
             p="1rem"
+            bg={activeTab === "edit" ? "gray.100" : ""}
+            borderTopRadius={activeTab === "edit" ? 10 : 0}
             borderBottomWidth={activeTab === "edit" ? "2px" : 0}
-            borderBottomColor={activeTab === "edit" ? "green.500" : ""}
-            color={activeTab === "edit" ? "green" : ""}
+            borderBottomColor={activeTab === "edit" ? "brandBlue" : ""}
+            color={activeTab === "edit" ? "brandBlue" : ""}
           >
             <Flex experimental_spaceX={1} cursor="pointer">
               <Icon as={PencilAltIcon} w={5} h={5} mt="2px" />
@@ -43,9 +42,11 @@ export default function TabNavigation({ children }) {
           <Box
             _hover={{ bg: "gray.100", borderTopRadius: 10 }}
             p="1rem"
+            bg={activeTab === "guests" ? "gray.100" : ""}
+            borderTopRadius={activeTab === "guests" ? 10 : 0}
             borderBottomWidth={activeTab === "guests" ? "2px" : 0}
-            borderBottomColor={activeTab === "guests" ? "green.500" : ""}
-            color={activeTab === "guests" ? "green" : ""}
+            borderBottomColor={activeTab === "guests" ? "brandBlue" : ""}
+            color={activeTab === "guests" ? "brandBlue" : ""}
           >
             <Flex experimental_spaceX={1} cursor="pointer">
               <Icon as={EmojiHappyIcon} w={5} h={5} mt="2px" />
@@ -57,9 +58,11 @@ export default function TabNavigation({ children }) {
           <Box
             _hover={{ bg: "gray.100", borderTopRadius: 10 }}
             p="1rem"
+            bg={activeTab === "access" ? "gray.100" : ""}
+            borderTopRadius={activeTab === "access" ? 10 : 0}
             borderBottomWidth={activeTab === "access" ? "2px" : 0}
-            borderBottomColor={activeTab === "access" ? "green.500" : ""}
-            color={activeTab === "access" ? "green" : ""}
+            borderBottomColor={activeTab === "access" ? "brandBlue" : ""}
+            color={activeTab === "access" ? "brandBlue" : ""}
           >
             <Flex experimental_spaceX={1} cursor="pointer">
               <Icon as={LockClosedIcon} w={5} h={5} />

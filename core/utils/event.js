@@ -40,11 +40,13 @@ export const formatEventData = (event) => {
 };
 
 export const getLocalizedDate = (date) => {
+  if (!date) return "";
   const d = new Date(date);
   return format(d, "PPPP");
 };
 
 export const getLocalizedTime = (date) => {
+  if (!date) return "";
   const d = new Date(date);
   return format(d, "p");
 };
