@@ -15,6 +15,7 @@ const fetchEventById = (event_id, fields) => {
  * @returns {object}        - event object with the required fields
  */
 export default function useEvent(event_id, fields = "") {
+  console.log(event_id, fields);
   const { isLoading, isError, isSuccess, data, error } = useQuery(
     "fetchEventById",
     () => fetchEventById(event_id, fields)

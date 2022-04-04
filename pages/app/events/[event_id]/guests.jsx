@@ -1,14 +1,14 @@
 import EventGuestsTemplate from "templates/Event/Guests";
 
-export default function GuestsSettings({ params }) {
-  console.log(params);
-  return <EventGuestsTemplate />;
+export default function GuestsSettings({ event_id }) {
+  return <EventGuestsTemplate event_id={event_id} />;
 }
 
 export async function getServerSideProps(context) {
+  const { event_id } = context.params;
   return {
     props: {
-      params: { ...context.params },
+      event_id: event_id,
     },
   };
 }

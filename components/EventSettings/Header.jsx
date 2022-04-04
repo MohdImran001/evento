@@ -1,5 +1,3 @@
-import { useRouter } from "next/router";
-
 import {
   Box,
   Heading,
@@ -15,17 +13,16 @@ import useEvent from "./useEvent";
 import { BASE_URL } from "core/constants";
 import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 
-export default function Header() {
-  const router = useRouter();
+export default function Header({ event_id }) {
   const { isLoading, isError, event, error } = useEvent(
-    router.query.event_id,
+    event_id,
     "_id title eventDate"
   );
 
   return (
     <Box>
       <Heading size="3xl" maxW="70rem" m="5rem auto" color="brand">
-        {isLoading && ""}
+        {isLoading && "loading..."}
         {isError && error.message}
         {event && event.title}
       </Heading>

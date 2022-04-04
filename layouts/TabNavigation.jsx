@@ -15,14 +15,14 @@ const getUrl = (tab, pathsArray) => {
   return pathsArray.join("/");
 };
 
-export default function TabNavigation({ children }) {
+export default function TabNavigation({ children, event_id }) {
   const router = useRouter();
   const pathsArray = router.asPath.split("/");
   const activeTab = pathsArray[pathsArray.length - 1];
-  const heading = "Farewell Party";
+
   return (
     <>
-      <Header />
+      <Header event_id={event_id} />
       <Box borderBottomColor="#EEE" borderBottomWidth="1px" mt="7rem">
         <Flex experimental_spaceX={5}>
           <Box
