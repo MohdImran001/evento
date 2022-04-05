@@ -14,7 +14,7 @@ import {
 export default function FileUpload() {
   const [imageUrl, setImageUrl] = useState();
   const [error, setError] = useState("");
-  // const [uploading, setUploading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   // let [height, setHeight] = useState();
   // let [width, setWidth] = useState();
 
@@ -35,8 +35,10 @@ export default function FileUpload() {
         return;
       }
 
+      setUploading(true);
       let { url } = await uploadToS3(file);
       setImageUrl(url);
+      setUploading(false);
     } catch (err) {
       setError(err.message);
       console.log(err);
@@ -48,13 +50,8 @@ export default function FileUpload() {
       <FileInput onChange={handleFileChange} />
       <Button onClick={openFileDialog}>Upload file</Button>
       <br />
-      {error.length == 0 && (
-        <Progress
-          value={files[0]?.progress}
-          size="xs"
-          colorScheme="blue"
-          mt="1rem"
-        />
+      {uploading && (
+        <Progress size="xs" colorScheme="blue" mt="1rem" isIndeterminate />
       )}
       {error.length > 0 && (
         <Alert status="error" mt="1rem">
