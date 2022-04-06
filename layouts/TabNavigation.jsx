@@ -74,6 +74,9 @@ export default function TabNavigation({ children, event_id }) {
         </Flex>
       </Box>
       <Box>{children}</Box>
+      <Box mt="50rem" mb="10rem">
+        end...
+      </Box>
     </>
   );
 }

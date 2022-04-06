@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import "@fontsource/inter";
 import "@fontsource/poppins";
 
+import "../styles/globals.css";
+
 const theme = extendTheme({
   fonts: {
     heading: "Poppins, sans-serif",

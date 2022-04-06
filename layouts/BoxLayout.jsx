@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Text, Icon } from "@chakra-ui/react";
 export default function BoxLayout({ children, title, summary, icon }) {
   return (
     <Flex experimental_spaceX={5} mt="5rem">
-      <Box color="secondary">
+      <Box color="brandBlue">
         <Icon as={icon} w={10} h={10} />
       </Box>
       <Box mt="5px" w="100%">
