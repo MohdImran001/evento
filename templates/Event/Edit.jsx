@@ -1,11 +1,16 @@
 import AppLayout from "layouts/AppLayout";
 import TabNavigation from "layouts/TabNavigation";
 
-import { PhotographIcon, DocumentTextIcon } from "@heroicons/react/outline";
+import {
+  PhotographIcon,
+  DocumentTextIcon,
+  PencilAltIcon,
+} from "@heroicons/react/outline";
 
 import BoxLayout from "layouts/BoxLayout";
 import FileUpload from "components/FileUpload";
 import Editor from "components/Editor";
+import Title from "components/EventSettings/Title";
 
 export default function EventEditTemplate({ event_id }) {
   return (
@@ -17,6 +22,9 @@ export default function EventEditTemplate({ event_id }) {
           icon={PhotographIcon}
         >
           <FileUpload />
+        </BoxLayout>
+        <BoxLayout title="Title" summary="Name your event" icon={PencilAltIcon}>
+          <Title />
         </BoxLayout>
         <BoxLayout
           title="Description"

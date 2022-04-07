@@ -1,17 +1,10 @@
-import {
-  Box,
-  Heading,
-  Text,
-  IconButton,
-  Icon,
-  Flex,
-  useClipboard,
-} from "@chakra-ui/react";
+import { Box, Heading, Text, IconButton, Icon, Flex } from "@chakra-ui/react";
 import { DocumentDuplicateIcon } from "@heroicons/react/solid";
 
-import useEvent from "./useEvent";
 import { BASE_URL } from "core/constants";
 import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
+
+import useEvent from "lib/hooks/queries/useEvent";
 
 export default function Header({ event_id }) {
   const { isLoading, isError, event, error } = useEvent(
