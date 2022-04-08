@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { useS3Upload, getImageData } from "next-s3-upload";
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useFormikContext } from "formik";
+import { useS3Upload, getImageData } from "next-s3-upload";
 
 import {
   Box,
@@ -15,10 +16,13 @@ export default function FileUpload() {
   const [imageUrl, setImageUrl] = useState();
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
-  // let [height, setHeight] = useState();
-  // let [width, setWidth] = useState();
+  const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
 
-  let { FileInput, openFileDialog, uploadToS3, files } = useS3Upload();
+  const { setFieldValue } = useFormikContext();
+
+  useEffect(() => {
+    setFieldValue("coverImageUrl", imageUrl);
+  }, [imageUrl, setFieldValue]);
 
   let handleFileChange = async (file) => {
     setError("");
