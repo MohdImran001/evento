@@ -7,9 +7,9 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 
-export default function DateAndTime() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [startTime, setStartTime] = useState(new Date());
+export default function DateAndTime({ date, time }) {
+  const [startDate, setStartDate] = useState(new Date(date));
+  const [startTime, setStartTime] = useState(new Date(time));
 
   // eslint-disable-next-line react/display-name
   const CustomDateButton = forwardRef(({ value, onClick }, ref) => (

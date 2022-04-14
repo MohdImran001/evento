@@ -2,7 +2,7 @@ import { FormControl, FormErrorMessage, Input } from "@chakra-ui/react";
 
 import { useField } from "formik";
 
-export default function Title() {
+export default function Title({ title }) {
   const [field, meta] = useField("title");
   const isError = meta.touched && meta.error;
   return (
@@ -15,6 +15,8 @@ export default function Title() {
         size="lg"
         {...field}
         fontFamily="Poppins"
+        fontSize="2xl"
+        height="16"
       />
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>

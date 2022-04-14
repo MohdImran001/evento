@@ -18,16 +18,16 @@ export const getEmbedMapUrl = (place_id) => {
 };
 
 export const formatEventData = (event) => {
-  const newDate = new Date(event.eventDate);
-
+  const date = new Date(event.eventDate);
+  const time = new Date(event.eventStartTime);
   return {
     ...event,
-    localizedDate: format(newDate, "PPPP"), // e.g. Friday, April 29th, 1453
-    localizedTime: format(newDate, "p"), // e.g. 12:00 AM,
+    localizedDate: format(date, "PPPP"), // e.g. Friday, April 29th, 1453
+    localizedTime: format(time, "p"), // e.g. 12:00 AM,
     calendar: {
-      day: format(newDate, "EEEE"), // e.g. Thursday
-      date: format(newDate, "d"), // e.g. 30th
-      month: format(newDate, "MMMM"), // e.g. March
+      day: format(date, "EEEE"), // e.g. Thursday
+      date: format(date, "d"), // e.g. 30th
+      month: format(date, "MMMM"), // e.g. March
     },
     hosts: event.hosts.map((host) => ({
       ...host,
@@ -36,6 +36,7 @@ export const formatEventData = (event) => {
     createdAt: event.createdAt.toString(),
     updatedAt: event.updatedAt.toString(),
     eventDate: event.eventDate.toString(),
+    eventStartTime: event.eventStartTime.toString(),
   };
 };
 

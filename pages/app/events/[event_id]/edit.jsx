@@ -1,14 +1,21 @@
+import dbConnect from "core/db/connect";
+import Event from "core/db/models/Event";
+import { formatEventData } from "core/utils/event";
 import EventEditTemplate from "templates/Event/Edit";
 
-export default function Edit({ event_id }) {
-  return <EventEditTemplate event_id={event_id} />;
+export default function Edit({ event }) {
+  return <EventEditTemplate event={event} />;
 }
 
 export async function getServerSideProps(context) {
   const { event_id } = context.params;
+
+  await dbConnect();
+  const event = await Event.findById(event_id).lean();
+
   return {
     props: {
-      event_id: event_id,
+      event: formatEventData(event),
     },
   };
 }

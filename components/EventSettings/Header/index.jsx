@@ -9,7 +9,7 @@ import useEvent from "lib/hooks/queries/useEvent";
 export default function Header({ event_id }) {
   const { isLoading, isError, event, error } = useEvent(
     event_id,
-    "_id title eventDate"
+    "_id title eventDate eventStartTime"
   );
 
   return (
@@ -22,7 +22,7 @@ export default function Header({ event_id }) {
       {event?.eventDate && (
         <Text color="brandOrange" mt="-4rem">
           {getLocalizedDate(event?.eventDate)} at{" "}
-          {getLocalizedTime(event?.eventDate)}
+          {getLocalizedTime(event?.eventStartTime)}
         </Text>
       )}
       <Flex mt="1rem" experimental_spaceX={2}>

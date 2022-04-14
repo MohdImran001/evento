@@ -7,7 +7,7 @@ const QuillNoSSRWrapper = dynamic(import("react-quill"), {
 });
 import "react-quill/dist/quill.snow.css";
 
-export default function Editor() {
+export default function Editor({ content }) {
   const { setFieldValue } = useFormikContext();
 
   return (
@@ -17,12 +17,7 @@ export default function Editor() {
         console.log(editor.getContents());
         setFieldValue("about", JSON.stringify(editor.getContents()));
       }}
-      // defaultValue={{
-      //   ops: [
-      //     { insert: "hello world!!" },
-      //     { attributes: { header: 1 }, insert: "\n" },
-      //   ],
-      // }}
+      defaultValue={JSON.parse(content)}
     />
   );
 }

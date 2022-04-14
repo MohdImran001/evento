@@ -8,6 +8,7 @@ import {
   CheckCircleIcon,
   LocationMarkerIcon,
   CalendarIcon,
+  XCircleIcon,
 } from "@heroicons/react/outline";
 import { Button, Icon } from "@chakra-ui/react";
 
@@ -21,23 +22,23 @@ import Title from "components/EventSettings/Title";
 import MapWithPlacesAutoComplete from "components/Map";
 import DateAndTime from "components/DateAndTime";
 
-export default function EventEditTemplate({ event_id }) {
+export default function EventEditTemplate({ event }) {
   return (
     <AppLayout>
-      <TabNavigation event_id={event_id}>
+      <TabNavigation event_id={event._id}>
         <Formik
           initialValues={{
-            coverImageUrl: "",
-            title: "",
-            about: "",
+            coverImageUrl: event ? event.coverImageUrl : "",
+            title: event ? event.title : "",
+            about: event ? event.about : "",
             location: {
-              place_id: "",
-              address: "",
-              name: "",
-              additional_info: "",
+              place_id: event ? event.location.place_id : "",
+              address: event ? event.location.address : "",
+              name: event ? event.location.name : "",
+              additional_info: event ? event.location.additional_info : "",
             },
-            eventDate: new Date(),
-            startTime: new Date(),
+            eventDate: event ? event.eventDate : new Date(),
+            eventStartTime: event ? event.eventStartTime : new Date(),
           }}
           validationSchema={Yup.object({
             title: Yup.string()
@@ -64,39 +65,39 @@ export default function EventEditTemplate({ event_id }) {
               summary="Name your event"
               icon={PencilAltIcon}
             >
-              <Title />
+              <Title title={event.title} />
             </BoxLayout>
             <BoxLayout
               title="Main Event Image"
               summary="Use a high quality image: 2160x1080px (2:1 ratio)."
               icon={PhotographIcon}
             >
-              <FileUpload />
+              <FileUpload url={event.coverImageUrl} />
             </BoxLayout>
             <BoxLayout
               title="Date and Time"
               summary="Tell event-goers when your event starts and ends so they can make plans to attend."
               icon={CalendarIcon}
             >
-              <DateAndTime />
+              <DateAndTime date={event.eventDate} time={event.eventStartTime} />
             </BoxLayout>
             <BoxLayout
               title="Location"
               summary="Help people in the area discover your event and let attendees know where to show up."
               icon={LocationMarkerIcon}
             >
-              <MapWithPlacesAutoComplete />
+              <MapWithPlacesAutoComplete location={event.location} />
             </BoxLayout>
             <BoxLayout
               title="Description"
               summary="Add more details to your event like your schedule, sponsors, or featured guests."
               icon={DocumentTextIcon}
             >
-              <Editor />
+              <Editor content={event.about} />
             </BoxLayout>
             <Button
               leftIcon={
-                <Icon as={CheckCircleIcon} color="#FFFFFF" w={5} h={5} />
+                <Icon as={CheckCircleIcon} color="#FFFFFF" w={6} h={6} />
               }
               bg="brandBlue"
               _hover={{ bg: "brandBlue" }}
@@ -106,8 +107,21 @@ export default function EventEditTemplate({ event_id }) {
               ml="3.7rem"
               type="submit"
               borderRadius="5px"
+              size="lg"
             >
               Save Changes
+            </Button>
+            <Button
+              leftIcon={<Icon as={XCircleIcon} color="#FFF" w={6} h={6} />}
+              variant="solid"
+              mt="2rem"
+              ml="2rem"
+              type="button"
+              borderRadius="5px"
+              size="lg"
+              colorScheme="red"
+            >
+              Discard
             </Button>
           </Form>
         </Formik>

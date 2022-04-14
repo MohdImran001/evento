@@ -22,7 +22,9 @@ const containerStyle = {
 const center = { lat: 28.6139, lng: 77.209 };
 const libraries = ["places"];
 
-function MapWithPlacesAutoComplete() {
+function MapWithPlacesAutoComplete({
+  location: { place_id, address, name, additional_info },
+}) {
   const [map, setMap] = React.useState(/** @type google.maps.Map */ (null));
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
@@ -41,14 +43,15 @@ function MapWithPlacesAutoComplete() {
             children={<Icon as={LocationMarkerIcon} w={5} h={5} />}
           />
           <Autocomplete>
-            <Input size="md" type="text" placeholder="Search your location" />
+            <Input size="lg" type="text" placeholder="Search your location" />
           </Autocomplete>
         </InputGroup>
         <Input
           mt="1rem"
-          size="md"
+          size="lg"
           type="text"
           placeholder="any additional info, e.g. First Floor etc"
+          defaultValue={additional_info}
         />
       </Box>
       <Box>

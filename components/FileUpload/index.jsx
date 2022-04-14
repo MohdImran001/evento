@@ -12,8 +12,8 @@ import {
   Progress,
 } from "@chakra-ui/react";
 
-export default function FileUpload() {
-  const [imageUrl, setImageUrl] = useState();
+export default function FileUpload({ url }) {
+  const [imageUrl, setImageUrl] = useState(url);
   const [error, setError] = useState("");
   const [uploading, setUploading] = useState(false);
   const { FileInput, openFileDialog, uploadToS3 } = useS3Upload();
@@ -22,7 +22,8 @@ export default function FileUpload() {
 
   useEffect(() => {
     setFieldValue("coverImageUrl", imageUrl);
-  }, [imageUrl, setFieldValue]);
+    console.log(url, imageUrl);
+  }, [imageUrl, setFieldValue, url]);
 
   let handleFileChange = async (file) => {
     setError("");
