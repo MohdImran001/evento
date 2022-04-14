@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 // Google Map API Key
-const GOOGLE_MAP_API_KEY = process.env.GOOGLE_MAP_API_KEY;
+const GOOGLE_MAP_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY;
 
 export const copyUrl = (url) => {
   navigator.clipboard.writeText(url);

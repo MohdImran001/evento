@@ -6,6 +6,8 @@ import {
   DocumentTextIcon,
   PencilAltIcon,
   CheckCircleIcon,
+  LocationMarkerIcon,
+  CalendarIcon,
 } from "@heroicons/react/outline";
 import { Button, Icon } from "@chakra-ui/react";
 
@@ -16,6 +18,8 @@ import TabNavigation from "layouts/TabNavigation";
 import Editor from "components/Editor";
 import FileUpload from "components/FileUpload";
 import Title from "components/EventSettings/Title";
+import MapWithPlacesAutoComplete from "components/Map";
+import DateAndTime from "components/DateAndTime";
 
 export default function EventEditTemplate({ event_id }) {
   return (
@@ -26,13 +30,29 @@ export default function EventEditTemplate({ event_id }) {
             coverImageUrl: "",
             title: "",
             about: "",
+            location: {
+              place_id: "",
+              address: "",
+              name: "",
+              additional_info: "",
+            },
+            eventDate: new Date(),
+            startTime: new Date(),
           }}
           validationSchema={Yup.object({
             title: Yup.string()
               .min(5, "Must be atleast 5 characters or more")
               .required("Required"),
             about: Yup.string(),
-            coverImageUrl: Yup.string(),
+            location: Yup.object().shape({
+              place_id: Yup.string(),
+              address: Yup.string(),
+              name: Yup.string(),
+              additional_info: Yup.string(),
+            }),
+            coverImageUrl: Yup.string().url(),
+            eventDate: Yup.date(),
+            eventTime: Yup.date(),
           })}
           onSubmit={(values) => {
             console.log(values);
@@ -52,6 +72,20 @@ export default function EventEditTemplate({ event_id }) {
               icon={PhotographIcon}
             >
               <FileUpload />
+            </BoxLayout>
+            <BoxLayout
+              title="Date and Time"
+              summary="Tell event-goers when your event starts and ends so they can make plans to attend."
+              icon={CalendarIcon}
+            >
+              <DateAndTime />
+            </BoxLayout>
+            <BoxLayout
+              title="Location"
+              summary="Help people in the area discover your event and let attendees know where to show up."
+              icon={LocationMarkerIcon}
+            >
+              <MapWithPlacesAutoComplete />
             </BoxLayout>
             <BoxLayout
               title="Description"
