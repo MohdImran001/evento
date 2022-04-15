@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useFormikContext } from "formik";
 import {
   GoogleMap,
   useJsApiLoader,
@@ -22,14 +23,25 @@ const containerStyle = {
 const center = { lat: 28.6139, lng: 77.209 };
 const libraries = ["places"];
 
-function MapWithPlacesAutoComplete({
-  location: { place_id, address, name, additional_info },
-}) {
-  const [map, setMap] = React.useState(/** @type google.maps.Map */ (null));
+function MapWithPlacesAutoComplete({ location }) {
+  const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+  const { setFieldValue } = useFormikContext();
+
+  const [locationData, setLocationData] = useState({
+    place_id: location?.place_id,
+    address: location?.address,
+    name: location?.name,
+    additional_info: location?.additional_info,
+  });
+
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
     libraries: libraries,
   });
+
+  useEffect(() => {
+    setFieldValue("location", locationData);
+  }, [locationData, setFieldValue]);
 
   if (!isLoaded) return <p>Loading...</p>;
 
@@ -51,7 +63,13 @@ function MapWithPlacesAutoComplete({
           size="lg"
           type="text"
           placeholder="any additional info, e.g. First Floor etc"
-          defaultValue={additional_info}
+          defaultValue={location?.additional_info}
+          onChange={(e) =>
+            setLocationData({
+              ...locationData,
+              additional_info: e.target.value,
+            })
+          }
         />
       </Box>
       <Box>
