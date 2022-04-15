@@ -17,6 +17,8 @@ export default function Title({ title }) {
         fontFamily="Poppins"
         fontSize="2xl"
         height="16"
+        variant="flushed"
+        color="brand"
       />
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>

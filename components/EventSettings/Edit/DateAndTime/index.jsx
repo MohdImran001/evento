@@ -1,4 +1,6 @@
-import { useState, forwardRef } from "react";
+import { useState, useEffect, forwardRef } from "react";
+import { useFormikContext } from "formik";
+
 import { Box, Button, Icon, Flex, Heading } from "@chakra-ui/react";
 import { CalendarIcon, ClockIcon } from "@heroicons/react/solid";
 
@@ -7,33 +9,39 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
 
+// eslint-disable-next-line react/display-name
+const CustomDateButton = forwardRef(({ value, onClick }, ref) => (
+  <Button
+    leftIcon={<Icon as={CalendarIcon} />}
+    className="example-custom-input"
+    onClick={onClick}
+    ref={ref}
+  >
+    {value}
+  </Button>
+));
+
+// eslint-disable-next-line react/display-name
+const CustomTimeButton = forwardRef(({ value, onClick }, ref) => (
+  <Button
+    leftIcon={<Icon as={ClockIcon} />}
+    className="example-custom-input"
+    onClick={onClick}
+    ref={ref}
+  >
+    {value}
+  </Button>
+));
+
 export default function DateAndTime({ date, time }) {
   const [startDate, setStartDate] = useState(new Date(date));
   const [startTime, setStartTime] = useState(new Date(time));
+  const { setFieldValue } = useFormikContext();
 
-  // eslint-disable-next-line react/display-name
-  const CustomDateButton = forwardRef(({ value, onClick }, ref) => (
-    <Button
-      leftIcon={<Icon as={CalendarIcon} />}
-      className="example-custom-input"
-      onClick={onClick}
-      ref={ref}
-    >
-      {value}
-    </Button>
-  ));
-
-  // eslint-disable-next-line react/display-name
-  const CustomTimeButton = forwardRef(({ value, onClick }, ref) => (
-    <Button
-      leftIcon={<Icon as={ClockIcon} />}
-      className="example-custom-input"
-      onClick={onClick}
-      ref={ref}
-    >
-      {value}
-    </Button>
-  ));
+  useEffect(() => {
+    setFieldValue("eventDate", startDate);
+    setFieldValue("eventStartTime", startTime);
+  }, [startDate, startTime, setFieldValue]);
 
   return (
     <Box>

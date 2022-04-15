@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useFormikContext } from "formik";
 import dynamic from "next/dynamic";
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
@@ -14,7 +13,6 @@ export default function Editor({ content }) {
     <QuillNoSSRWrapper
       theme="snow"
       onChange={(content, delta, source, editor) => {
-        console.log(editor.getContents());
         setFieldValue("about", JSON.stringify(editor.getContents()));
       }}
       defaultValue={JSON.parse(content)}
