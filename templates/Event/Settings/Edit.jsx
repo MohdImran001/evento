@@ -16,11 +16,11 @@ import AppLayout from "layouts/AppLayout";
 import BoxLayout from "layouts/BoxLayout";
 import TabNavigation from "layouts/TabNavigation";
 
-import Editor from "components/Editor";
-import FileUpload from "components/FileUpload";
-import Title from "components/EventSettings/Title";
-import MapWithPlacesAutoComplete from "components/Map";
-import DateAndTime from "components/DateAndTime";
+import Editor from "components/EventSettings/Edit/Editor";
+import FileUpload from "components/EventSettings/Edit/FileUpload";
+import Title from "components/EventSettings/Edit/Title";
+import MapWithPlacesAutoComplete from "components/EventSettings/Edit/Map";
+import DateAndTime from "components/EventSettings/Edit/DateAndTime";
 
 export default function EventEditTemplate({ event }) {
   return (
