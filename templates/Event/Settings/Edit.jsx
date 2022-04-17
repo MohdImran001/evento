@@ -2,14 +2,18 @@ import * as Yup from "yup";
 import { Formik, Form } from "formik";
 
 import {
-  PhotographIcon,
-  DocumentTextIcon,
-  PencilAltIcon,
+  MenuAlt2Icon,
   CheckCircleIcon,
-  LocationMarkerIcon,
-  CalendarIcon,
   XCircleIcon,
 } from "@heroicons/react/outline";
+
+import {
+  PencilIcon,
+  PhotographIcon,
+  CalendarIcon,
+  MapIcon,
+} from "@heroicons/react/solid";
+
 import { Button, Icon } from "@chakra-ui/react";
 
 import AppLayout from "layouts/AppLayout";
@@ -23,12 +27,9 @@ import MapWithPlacesAutoComplete from "components/EventSettings/Edit/Map";
 import DateAndTime from "components/EventSettings/Edit/DateAndTime";
 
 import useEditEvent from "lib/hooks/mutations/useEditEvent";
-import { useState } from "react";
 
 export default function EventEditTemplate({ event }) {
   const updateEvent = useEditEvent(event._id);
-  const [saving, setSaving] = useState(false);
-  console.log(saving);
   return (
     <AppLayout>
       <TabNavigation event_id={event._id}>
@@ -62,17 +63,15 @@ export default function EventEditTemplate({ event }) {
             eventTime: Yup.date(),
           })}
           onSubmit={async (values) => {
-            setSaving(true);
-            (await updateEvent).mutateAsync({ ...values });
-            setSaving(false);
+            await (await updateEvent).mutateAsync({ ...values });
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <BoxLayout
-                title="Title"
+                title="Event Title"
                 summary="Name your event"
-                icon={PencilAltIcon}
+                icon={PencilIcon}
               >
                 <Title title={event.title} />
               </BoxLayout>
@@ -96,14 +95,14 @@ export default function EventEditTemplate({ event }) {
               <BoxLayout
                 title="Location"
                 summary="Help people in the area discover your event and let attendees know where to show up."
-                icon={LocationMarkerIcon}
+                icon={MapIcon}
               >
                 <MapWithPlacesAutoComplete location={event.location} />
               </BoxLayout>
               <BoxLayout
                 title="Description"
                 summary="Add more details to your event like your schedule, sponsors, or featured guests."
-                icon={DocumentTextIcon}
+                icon={MenuAlt2Icon}
               >
                 <Editor content={event.about} />
               </BoxLayout>
@@ -117,8 +116,10 @@ export default function EventEditTemplate({ event }) {
                 type="submit"
                 borderRadius="5px"
                 size="lg"
-                colorScheme="teal"
-                isLoading={saving}
+                bg="brandBlue"
+                color="white"
+                _hover={{ bg: "brandBlue" }}
+                isLoading={isSubmitting}
               >
                 Save Changes
               </Button>

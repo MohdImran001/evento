@@ -19,6 +19,7 @@ export default function Title({ title }) {
         height="16"
         variant="flushed"
         color="brand"
+        focusBorderColor="brandBlue"
       />
       <FormErrorMessage>{meta.error}</FormErrorMessage>
     </FormControl>

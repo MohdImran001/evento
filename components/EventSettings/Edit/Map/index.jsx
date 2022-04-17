@@ -54,7 +54,12 @@ function MapWithPlacesAutoComplete({ location }) {
             children={<Icon as={LocationMarkerIcon} w={5} h={5} />}
           />
           <Autocomplete>
-            <Input size="lg" type="text" placeholder="Search your location" />
+            <Input
+              size="lg"
+              type="text"
+              placeholder="Search your location"
+              focusBorderColor="brandBlue"
+            />
           </Autocomplete>
         </InputGroup>
         <Input
@@ -69,6 +74,7 @@ function MapWithPlacesAutoComplete({ location }) {
               additional_info: e.target.value,
             })
           }
+          focusBorderColor="brandBlue"
         />
       </Box>
       <Box>

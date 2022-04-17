@@ -30,12 +30,12 @@ export default function TabNavigation({ children, event_id }) {
             p="1rem"
             bg={activeTab === "edit" ? "gray.100" : ""}
             borderTopRadius={activeTab === "edit" ? 10 : 0}
-            borderBottomWidth={activeTab === "edit" ? "2px" : 0}
+            borderBottomWidth={activeTab === "edit" ? "4px" : 0}
             borderBottomColor={activeTab === "edit" ? "brandBlue" : ""}
             color={activeTab === "edit" ? "brandBlue" : ""}
           >
-            <Flex experimental_spaceX={1} cursor="pointer">
-              <Icon as={PencilAltIcon} w={5} h={5} mt="2px" />
+            <Flex experimental_spaceX={2} cursor="pointer">
+              <Icon as={PencilAltIcon} w={5} h={5} mt="1.5px" />
               <Link href={getUrl("edit", pathsArray)}>Details</Link>
             </Flex>
           </Box>
@@ -44,11 +44,11 @@ export default function TabNavigation({ children, event_id }) {
             p="1rem"
             bg={activeTab === "guests" ? "gray.100" : ""}
             borderTopRadius={activeTab === "guests" ? 10 : 0}
-            borderBottomWidth={activeTab === "guests" ? "2px" : 0}
+            borderBottomWidth={activeTab === "guests" ? "4px" : 0}
             borderBottomColor={activeTab === "guests" ? "brandBlue" : ""}
             color={activeTab === "guests" ? "brandBlue" : ""}
           >
-            <Flex experimental_spaceX={1} cursor="pointer">
+            <Flex experimental_spaceX={2} cursor="pointer">
               <Icon as={EmojiHappyIcon} w={5} h={5} mt="2px" />
               <Text>
                 <Link href={getUrl("guests", pathsArray)}>Guests</Link>
@@ -60,11 +60,11 @@ export default function TabNavigation({ children, event_id }) {
             p="1rem"
             bg={activeTab === "access" ? "gray.100" : ""}
             borderTopRadius={activeTab === "access" ? 10 : 0}
-            borderBottomWidth={activeTab === "access" ? "2px" : 0}
+            borderBottomWidth={activeTab === "access" ? "4px" : 0}
             borderBottomColor={activeTab === "access" ? "brandBlue" : ""}
             color={activeTab === "access" ? "brandBlue" : ""}
           >
-            <Flex experimental_spaceX={1} cursor="pointer">
+            <Flex experimental_spaceX={2} cursor="pointer">
               <Icon as={LockClosedIcon} w={5} h={5} />
               <Text>
                 <Link href={getUrl("access", pathsArray)}>Access</Link>
@@ -74,9 +74,7 @@ export default function TabNavigation({ children, event_id }) {
         </Flex>
       </Box>
       <Box>{children}</Box>
-      <Box mt="50rem" mb="10rem">
-        end...
-      </Box>
+      <Box mt="10rem" mb="10rem"></Box>
     </>
   );
 }
