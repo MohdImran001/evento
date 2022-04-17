@@ -78,7 +78,6 @@ export default function DateAndTime({ date, time }) {
             showTimeSelectOnly
             onChange={(date) => setStartTime(date)}
             customInput={<CustomTimeButton />}
-            minDate={new Date()}
           />
         </Box>
       </Flex>

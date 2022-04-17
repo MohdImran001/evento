@@ -25,6 +25,11 @@ const LocationSchema = new mongoose.Schema({
       "Please provide a place_id of the location for this event.",
     ],
   },
+  additional_info: {
+    /* Additional Information related to venue */
+
+    type: String,
+  },
 });
 
 const EventSchema = new mongoose.Schema({
@@ -63,9 +68,15 @@ const EventSchema = new mongoose.Schema({
     },
   ],
   eventDate: {
-    /* when the event is goint to take place*/
+    /* when the event is goint to take place */
 
     required: [true, "Please provide a date for this event."],
+    type: Date,
+  },
+  eventStartTime: {
+    /* when the event is going to take place */
+
+    required: [true, "Please provide a time slot for this event."],
     type: Date,
   },
   location: {

@@ -22,7 +22,6 @@ export default function FileUpload({ url }) {
 
   useEffect(() => {
     setFieldValue("coverImageUrl", imageUrl);
-    console.log(url, imageUrl);
   }, [imageUrl, setFieldValue, url]);
 
   let handleFileChange = async (file) => {

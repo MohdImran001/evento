@@ -2,6 +2,7 @@ import { useState } from "react";
 import { SessionProvider } from "next-auth/react";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import "@fontsource/inter";
 import "@fontsource/poppins";
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <ChakraProvider theme={theme}>
           <Component {...pageProps} />
         </ChakraProvider>
+        <ReactQueryDevtools initialIsOpen={true} />
       </QueryClientProvider>
     </SessionProvider>
   );

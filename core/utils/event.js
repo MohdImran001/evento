@@ -37,6 +37,10 @@ export const formatEventData = (event) => {
     updatedAt: event.updatedAt.toString(),
     eventDate: event.eventDate.toString(),
     eventStartTime: event.eventStartTime.toString(),
+    location: {
+      ...event.location,
+      _id: event.location._id.toString(),
+    },
   };
 };
 

@@ -22,7 +22,13 @@ import Title from "components/EventSettings/Edit/Title";
 import MapWithPlacesAutoComplete from "components/EventSettings/Edit/Map";
 import DateAndTime from "components/EventSettings/Edit/DateAndTime";
 
+import useEditEvent from "lib/hooks/mutations/useEditEvent";
+import { useState } from "react";
+
 export default function EventEditTemplate({ event }) {
+  const updateEvent = useEditEvent(event._id);
+  const [saving, setSaving] = useState(false);
+  console.log(saving);
   return (
     <AppLayout>
       <TabNavigation event_id={event._id}>
@@ -55,75 +61,81 @@ export default function EventEditTemplate({ event }) {
             eventDate: Yup.date(),
             eventTime: Yup.date(),
           })}
-          onSubmit={(values) => {
-            console.log(values);
+          onSubmit={async (values) => {
+            setSaving(true);
+            (await updateEvent).mutateAsync({ ...values });
+            setSaving(false);
           }}
         >
-          <Form>
-            <BoxLayout
-              title="Title"
-              summary="Name your event"
-              icon={PencilAltIcon}
-            >
-              <Title title={event.title} />
-            </BoxLayout>
-            <BoxLayout
-              title="Main Event Image"
-              summary="Use a high quality image: 2160x1080px (2:1 ratio)."
-              icon={PhotographIcon}
-            >
-              <FileUpload url={event.coverImageUrl} />
-            </BoxLayout>
-            <BoxLayout
-              title="Date and Time"
-              summary="Tell event-goers when your event starts and ends so they can make plans to attend."
-              icon={CalendarIcon}
-            >
-              <DateAndTime date={event.eventDate} time={event.eventStartTime} />
-            </BoxLayout>
-            <BoxLayout
-              title="Location"
-              summary="Help people in the area discover your event and let attendees know where to show up."
-              icon={LocationMarkerIcon}
-            >
-              <MapWithPlacesAutoComplete location={event.location} />
-            </BoxLayout>
-            <BoxLayout
-              title="Description"
-              summary="Add more details to your event like your schedule, sponsors, or featured guests."
-              icon={DocumentTextIcon}
-            >
-              <Editor content={event.about} />
-            </BoxLayout>
-            <Button
-              leftIcon={
-                <Icon as={CheckCircleIcon} color="#FFFFFF" w={6} h={6} />
-              }
-              bg="brandBlue"
-              _hover={{ bg: "brandBlue" }}
-              color="#FFF"
-              variant="solid"
-              mt="2rem"
-              ml="3.7rem"
-              type="submit"
-              borderRadius="5px"
-              size="lg"
-            >
-              Save Changes
-            </Button>
-            <Button
-              leftIcon={<Icon as={XCircleIcon} color="#FFF" w={6} h={6} />}
-              variant="solid"
-              mt="2rem"
-              ml="2rem"
-              type="button"
-              borderRadius="5px"
-              size="lg"
-              colorScheme="red"
-            >
-              Discard
-            </Button>
-          </Form>
+          {({ isSubmitting }) => (
+            <Form>
+              <BoxLayout
+                title="Title"
+                summary="Name your event"
+                icon={PencilAltIcon}
+              >
+                <Title title={event.title} />
+              </BoxLayout>
+              <BoxLayout
+                title="Main Event Image"
+                summary="Use a high quality image: 2160x1080px (2:1 ratio)."
+                icon={PhotographIcon}
+              >
+                <FileUpload url={event.coverImageUrl} />
+              </BoxLayout>
+              <BoxLayout
+                title="Date and Time"
+                summary="Tell event-goers when your event starts and ends so they can make plans to attend."
+                icon={CalendarIcon}
+              >
+                <DateAndTime
+                  date={event.eventDate}
+                  time={event.eventStartTime}
+                />
+              </BoxLayout>
+              <BoxLayout
+                title="Location"
+                summary="Help people in the area discover your event and let attendees know where to show up."
+                icon={LocationMarkerIcon}
+              >
+                <MapWithPlacesAutoComplete location={event.location} />
+              </BoxLayout>
+              <BoxLayout
+                title="Description"
+                summary="Add more details to your event like your schedule, sponsors, or featured guests."
+                icon={DocumentTextIcon}
+              >
+                <Editor content={event.about} />
+              </BoxLayout>
+              <Button
+                leftIcon={
+                  <Icon as={CheckCircleIcon} color="#FFFFFF" w={6} h={6} />
+                }
+                variant="solid"
+                mt="2rem"
+                ml="3.7rem"
+                type="submit"
+                borderRadius="5px"
+                size="lg"
+                colorScheme="teal"
+                isLoading={saving}
+              >
+                Save Changes
+              </Button>
+              <Button
+                leftIcon={<Icon as={XCircleIcon} color="#FFF" w={6} h={6} />}
+                variant="solid"
+                mt="2rem"
+                ml="2rem"
+                type="button"
+                borderRadius="5px"
+                size="lg"
+                colorScheme="red"
+              >
+                Discard
+              </Button>
+            </Form>
+          )}
         </Formik>
       </TabNavigation>
     </AppLayout>

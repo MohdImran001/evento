@@ -3,7 +3,6 @@ import { useFormikContext } from "formik";
 import {
   GoogleMap,
   useJsApiLoader,
-  Marker,
   Autocomplete,
 } from "@react-google-maps/api";
 
@@ -31,7 +30,7 @@ function MapWithPlacesAutoComplete({ location }) {
     place_id: location?.place_id,
     address: location?.address,
     name: location?.name,
-    additional_info: location?.additional_info,
+    additional_info: location.additional_info || "",
   });
 
   const { isLoaded } = useJsApiLoader({

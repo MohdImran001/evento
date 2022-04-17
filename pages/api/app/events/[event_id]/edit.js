@@ -1,5 +1,6 @@
 import { getToken } from "next-auth/jwt";
 import isAuthorized from "core/utils/authorized";
+import Event from "core/db/models/Event";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -16,14 +17,18 @@ export default async function handler(req, res) {
   }
 
   const { event_id } = req.query;
-  const { eventData } = req.body;
   const { sub: user_id } = await getToken({ req, secret });
 
   // Protect from unauthorized access
-  const event = await isAuthorized(event_id, user_id);
-  if (!event) {
+  if (!(await isAuthorized(event_id, user_id))) {
     return res.status(403).json({ message: "Not Authorized" });
   }
 
-  res.status(200).json({ ...eventData });
+  // Update event data
+  const { newEventData } = req.body;
+  const newData = await Event.findByIdAndUpdate(event_id, newEventData, {
+    new: true,
+  }).lean();
+
+  res.status(200).json({ ...newData });
 }
