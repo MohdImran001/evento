@@ -99,7 +99,7 @@ const EventList = () => {
                       <Text mt="8px">{event?.location?.name}</Text>
                       <Text>
                         {getLocalizedDate(event?.eventDate)} at{" "}
-                        {getLocalizedTime(event?.eventDate)}
+                        {getLocalizedTime(event?.eventStartTime)}
                       </Text>
                     </Box>
                   </Flex>
