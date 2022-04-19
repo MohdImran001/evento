@@ -8,27 +8,25 @@ const LocationSchema = new mongoose.Schema({
     /* Name of the venue */
 
     type: String,
-    required: [true, "Please provide a venue name for this event."],
+    default: "",
   },
   address: {
     /* Formatted address of the venue returned by Google Maps API*/
 
     type: String,
-    required: [true, "Please provide the address for this event."],
+    default: "",
   },
   place_id: {
     /* Google maps place_id of the venue */
 
     type: String,
-    required: [
-      true,
-      "Please provide a place_id of the location for this event.",
-    ],
+    default: "",
   },
   additional_info: {
     /* Additional Information related to venue */
 
     type: String,
+    default: "",
   },
 });
 
@@ -44,20 +42,20 @@ const EventSchema = new mongoose.Schema({
     /* The name of this event */
 
     type: String,
-    required: [true, "Please provide a title for this event."],
+    default: "Untitled Event",
     maxlength: [60, "Title cannot be more than 60 characters"],
   },
   coverImageUrl: {
     /* Url of cover image of event page */
 
-    required: [true, "Please provide an image url for this event."],
     type: String,
+    default: "",
   },
   about: {
     /* description about event*/
 
-    required: [true, "Please provide a description for this event."],
     type: String,
+    default: "",
   },
   hosts: [
     /* Refs to the oraganizers of the event*/
@@ -70,19 +68,24 @@ const EventSchema = new mongoose.Schema({
   eventDate: {
     /* when the event is goint to take place */
 
-    required: [true, "Please provide a date for this event."],
+    default: Date.now,
     type: Date,
   },
   eventStartTime: {
     /* when the event is going to take place */
 
-    required: [true, "Please provide a time slot for this event."],
+    default: Date.now,
     type: Date,
   },
-  location: {
-    /* location of the event with, Name, Address and Place_id*/
+  status: {
+    /* Status of the event (Draft or Live) */
 
-    required: [true, "Please provide a location for this event."],
+    type: "String",
+    default: "Draft",
+  },
+  location: {
+    /* location of the event with, Name, Address, Place_ID, and Additional Info */
+
     type: LocationSchema,
   },
   createdAt: {
