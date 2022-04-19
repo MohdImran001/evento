@@ -105,7 +105,11 @@ const EventList = () => {
                       </Center>
                     </Box>
                     <Image
-                      src={event?.coverImageUrl}
+                      src={
+                        event.coverImageUrl.length > 0
+                          ? event.coverImageUrl
+                          : "/no-image.png"
+                      }
                       alt="preview-image"
                       objectFit="cover"
                       borderRadius="2px"
