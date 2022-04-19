@@ -21,6 +21,7 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Button,
 } from "@chakra-ui/react";
 
 import {
@@ -29,6 +30,7 @@ import {
   PencilAltIcon,
   DocumentRemoveIcon,
   ClipboardCopyIcon,
+  PlusIcon,
 } from "@heroicons/react/solid";
 
 import {
@@ -51,6 +53,24 @@ const EventList = () => {
 
   return (
     <Skeleton isLoaded={!isLoading}>
+      <Box>
+        <Heading size="4xl" m="5rem auto" color="brand">
+          Events
+        </Heading>
+        <Box textAlign="right">
+          <Button
+            leftIcon={<Icon as={PlusIcon} />}
+            mb="2rem"
+            px="3rem"
+            bg="brandOrange"
+            color="#FFF"
+            _hover={{ bg: "brandOrange" }}
+            _active={{ bg: "brandOrange" }}
+          >
+            New Event
+          </Button>
+        </Box>
+      </Box>
       <Table variant="simple">
         <TableCaption>Events (All)</TableCaption>
         <Thead bg="orange.100">

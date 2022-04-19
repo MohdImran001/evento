@@ -14,13 +14,10 @@ import {
   useDisclosure,
   useColorModeValue,
   Stack,
-  Icon,
   Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon, AddIcon } from "@chakra-ui/icons";
-import { PaperAirplaneIcon } from "@heroicons/react/solid";
 import Profile from "core/elements/User/Profile";
-import { useRouter } from "next/router";
 
 const Links = [{ name: "Dashboard", to: "/app" }];
 
@@ -40,10 +37,6 @@ const NavLink = ({ children, link }) => (
 );
 
 export default function AppLayout({ children }) {
-  const router = useRouter();
-  const pathsArray = router.asPath.split("/");
-  const heading = pathsArray[pathsArray.length - 1] === "app" ? "Events" : "";
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
@@ -74,11 +67,7 @@ export default function AppLayout({ children }) {
               as={"nav"}
               spacing={2}
               display={{ base: "none", md: "flex" }}
-            >
-              {/* <NextLink href="/app" passHref>
-                <Link>Dashboard</Link>
-              </NextLink> */}
-            </HStack>
+            ></HStack>
           </HStack>
           <Flex alignItems={"center"}>
             <Menu>
@@ -91,9 +80,6 @@ export default function AppLayout({ children }) {
                 <Profile />
               </MenuButton>
               <MenuList>
-                {/* <MenuItem>Profile</MenuItem>
-                <MenuItem>Settings</MenuItem> */}
-                {/* <MenuDivider /> */}
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </MenuList>
             </Menu>
@@ -110,14 +96,6 @@ export default function AppLayout({ children }) {
           </Box>
         ) : null}
       </Box>
-
-      {heading.length > 0 && (
-        <Box>
-          <Heading size="3xl" maxW="70rem" m="5rem auto" color="brand">
-            {heading}
-          </Heading>
-        </Box>
-      )}
 
       <Box maxW="70rem" m="2rem auto">
         {children}
