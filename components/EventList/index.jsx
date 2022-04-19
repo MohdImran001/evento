@@ -44,11 +44,14 @@ import {
 
 import useEvents from "./useEvents";
 import useNewEvent from "lib/hooks/mutations/useNewEvent";
+import useDeleteEvent from "lib/hooks/mutations/useDeleteEvent";
 
 const EventList = () => {
   const router = useRouter();
-  const { mutate } = useNewEvent();
   const [loading, setLoading] = useState(false);
+
+  const { mutate: createNewEvent } = useNewEvent();
+  const { mutate: deleteEvent } = useDeleteEvent();
   const { isLoading, isError, events, error } = useEvents();
 
   if (isError) {
@@ -72,7 +75,7 @@ const EventList = () => {
             _active={{ bg: "brandOrange" }}
             onClick={() => {
               setLoading(true);
-              mutate();
+              createNewEvent();
             }}
             isLoading={loading}
           >
@@ -178,6 +181,7 @@ const EventList = () => {
                         </MenuItem>
                         <MenuItem
                           icon={<Icon as={DocumentRemoveIcon} w={5} h={5} />}
+                          onClick={() => deleteEvent(event._id)}
                         >
                           Delete
                         </MenuItem>
