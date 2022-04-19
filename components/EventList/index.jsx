@@ -42,10 +42,12 @@ import {
 } from "core/utils/event";
 
 import useEvents from "./useEvents";
+import useNewEvent from "lib/hooks/mutations/useNewEvent";
 
 const EventList = () => {
   const router = useRouter();
   const { isLoading, isError, events, error } = useEvents();
+  const newEvent = useNewEvent();
 
   if (isError) {
     return <span>Error: {error.message}</span>;
@@ -66,6 +68,8 @@ const EventList = () => {
             color="#FFF"
             _hover={{ bg: "brandOrange" }}
             _active={{ bg: "brandOrange" }}
+            onClick={async () => (await newEvent).mutate()}
+            loading={newEvent.isLoading}
           >
             New Event
           </Button>

@@ -12,7 +12,7 @@ const fetchUserEvents = () => {
  */
 export default function useFetchEvents() {
   const { isLoading, isError, isSuccess, data, error } = useQuery(
-    "userEvents",
+    ["events", "user"],
     fetchUserEvents
   );
   return {
