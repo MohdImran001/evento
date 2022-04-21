@@ -55,7 +55,7 @@ const EventSchema = new mongoose.Schema({
     /* description about event*/
 
     type: String,
-    default: "",
+    default: JSON.stringify({ ops: [{ insert: "\n" }] }),
   },
   hosts: [
     /* Refs to the oraganizers of the event*/
@@ -87,6 +87,12 @@ const EventSchema = new mongoose.Schema({
     /* location of the event with, Name, Address, Place_ID, and Additional Info */
 
     type: LocationSchema,
+    default: {
+      name: "",
+      address: "",
+      place_id: "",
+      additional_info: "",
+    },
   },
   createdAt: {
     /* Timestamp when the event is created */
