@@ -1,9 +1,22 @@
+import Error from "next/error";
+
 import dbConnect from "core/db/connect";
 import Event from "core/db/models/Event";
 import { formatEventData } from "core/utils/event";
+
 import EventEditTemplate from "templates/Event/Settings/Edit";
 
 export default function Edit({ event }) {
+  if (!event) {
+    return (
+      <Error
+        statusCode={404}
+        title={
+          "You're not authorized to view edit this event or This event doesn't exists"
+        }
+      />
+    );
+  }
   return <EventEditTemplate event={event} />;
 }
 
@@ -15,7 +28,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      event: formatEventData(event),
+      event: event ? formatEventData(event) : null,
     },
   };
 }
