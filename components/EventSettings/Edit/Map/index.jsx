@@ -4,6 +4,7 @@ import {
   GoogleMap,
   useJsApiLoader,
   Autocomplete,
+  Marker,
 } from "@react-google-maps/api";
 
 import {
@@ -24,8 +25,15 @@ const libraries = ["places"];
 
 function MapWithPlacesAutoComplete({ location }) {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
-  const { setFieldValue } = useFormikContext();
+  const [autoComplete, setAutoComplete] = useState(null);
+  const [position, setPosition] = useState(center);
 
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
+    libraries: libraries,
+  });
+
+  const { setFieldValue } = useFormikContext();
   const [locationData, setLocationData] = useState({
     place_id: location?.place_id,
     address: location?.address,
@@ -33,14 +41,28 @@ function MapWithPlacesAutoComplete({ location }) {
     additional_info: location.additional_info || "",
   });
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
-    libraries: libraries,
-  });
-
   useEffect(() => {
     setFieldValue("location", locationData);
   }, [locationData, setFieldValue]);
+
+  const getPlaceInfo = () => {
+    const { geometry, place_id, formatted_address, name } =
+      autoComplete.getPlace();
+
+    const newLocation = {
+      lat: geometry.location.lat(),
+      lng: geometry.location.lng(),
+    };
+
+    map.panTo(newLocation);
+    setPosition(newLocation);
+    setLocationData({
+      ...locationData,
+      place_id: place_id,
+      address: formatted_address,
+      name: name,
+    });
+  };
 
   if (!isLoaded) return <p>Loading...</p>;
 
@@ -53,12 +75,22 @@ function MapWithPlacesAutoComplete({ location }) {
             // eslint-disable-next-line react/no-children-prop
             children={<Icon as={LocationMarkerIcon} w={5} h={5} />}
           />
-          <Autocomplete>
+          <Autocomplete
+            onLoad={(autoComplete) => setAutoComplete(autoComplete)}
+            onPlaceChanged={getPlaceInfo}
+            fields={[
+              "place_id",
+              "formatted_address",
+              "name",
+              "geometry.location",
+            ]}
+          >
             <Input
               size="lg"
               type="text"
               placeholder="Search your location"
               focusBorderColor="brandBlue"
+              w="100%"
             />
           </Autocomplete>
         </InputGroup>
@@ -89,7 +121,9 @@ function MapWithPlacesAutoComplete({ location }) {
             fullscreenControl: false,
           }}
           onLoad={(map) => setMap(map)}
-        ></GoogleMap>
+        >
+          <Marker position={position} />
+        </GoogleMap>
       </Box>
     </Box>
   );
