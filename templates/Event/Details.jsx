@@ -13,8 +13,13 @@ import {
   Icon,
   AspectRatio,
 } from "@chakra-ui/react";
-import { CalendarIcon } from "@chakra-ui/icons";
-import { LocationMarkerIcon, MailIcon } from "@heroicons/react/outline";
+
+import {
+  LocationMarkerIcon,
+  MailIcon,
+  CalendarIcon,
+  ClockIcon,
+} from "@heroicons/react/solid";
 
 import { getMapUrl, getEmbedMapUrl } from "core/utils/event";
 import registerAttendee from "lib/event/api/register-attendee";
@@ -31,7 +36,7 @@ const EventDetails = ({ eventData: event }) => {
         <Image
           src={event?.coverImageUrl}
           alt="cover-image"
-          maxH={{ base: "15rem", md: "30rem" }}
+          maxH={{ base: "15rem", md: "25rem" }}
           w={{ base: "100%" }}
           objectFit="cover"
           borderRadius="10px"
@@ -45,7 +50,7 @@ const EventDetails = ({ eventData: event }) => {
           </Box>
           <Spacer />
           <Box bg="white" w="90px" boxShadow="base" mt="-2rem" mr="1rem">
-            <Center bg="red.500" w="100%" p="2px">
+            <Center bg="brandOrange" w="100%" p="2px">
               <Text fontSize={{ base: "xs" }} color="white">
                 <b>{event?.calendar?.month}</b>
               </Text>
@@ -63,28 +68,44 @@ const EventDetails = ({ eventData: event }) => {
       </Box>
       {/* Evento Content */}
       <Box p={{ base: "1rem" }} borderColor="gray.200" m="0 auto" maxW="50rem">
-        <Heading>{event?.title}</Heading>
-        <Flex direction={{ base: "column" }} mt=".5rem">
-          <Box my="5px">
-            <CalendarIcon mt="-3px" mx="3px" color="#d86156" />
-            <Text fontSize={{ base: "sm" }} color="#d86156" as="span" ml="5px">
-              {event?.localizedDate}
-            </Text>
-          </Box>
-          <Box>
-            <Icon as={LocationMarkerIcon} color="#737577" w={5} h={5} />
+        <Heading color="brand" size="3xl" mt="3rem">
+          {event?.title}
+        </Heading>
+        <Flex direction={{ base: "column" }} mt="2rem" experimental_spaceY={2}>
+          <Flex experimental_spaceX={2}>
+            <Box>
+              <Icon as={CalendarIcon} color="gray.500" w={5} h={5} />
+            </Box>
             <Text
-              fontSize={{ base: "sm" }}
+              fontSize={{ base: "md" }}
               color="gray.500"
               as="span"
-              ml="6px"
-              mt="-2px"
+              mt="0rem"
             >
-              <a href={getMapUrl(event?.location)}>
-                {event?.location?.address}
-              </a>
+              {event?.localizedDate}
             </Text>
-          </Box>
+          </Flex>
+          <Flex experimental_spaceX={2}>
+            <Box>
+              <Icon as={ClockIcon} color="gray.500" w={5} h={5} />
+            </Box>
+            <Text
+              fontSize={{ base: "md" }}
+              color="gray.500"
+              as="span"
+              mt="0rem"
+            >
+              {event?.localizedTime}
+            </Text>
+          </Flex>
+          <Flex experimental_spaceX={2}>
+            <Box>
+              <Icon as={LocationMarkerIcon} color="gray.500" w={5} h={5} />
+            </Box>
+            <Text fontSize={{ base: "md" }} color="gray.500" as="span" ml="6px">
+              <a href={getMapUrl(event?.location)}>{event?.location?.name}</a>
+            </Text>
+          </Flex>
         </Flex>
 
         {/* Evento Description */}
