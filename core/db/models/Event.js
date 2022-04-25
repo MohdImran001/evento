@@ -28,6 +28,11 @@ const LocationSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  geometry: {
+    /* Stores Latitude, Longitude of venue */
+
+    type: Object,
+  },
 });
 
 const EventSchema = new mongoose.Schema({
@@ -92,6 +97,7 @@ const EventSchema = new mongoose.Schema({
       address: "",
       place_id: "",
       additional_info: "",
+      geometry: undefined,
     },
   },
   createdAt: {

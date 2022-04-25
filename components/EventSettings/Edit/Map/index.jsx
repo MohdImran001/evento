@@ -26,7 +26,7 @@ const libraries = ["places"];
 function MapWithPlacesAutoComplete({ location }) {
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
   const [autoComplete, setAutoComplete] = useState(null);
-  const [position, setPosition] = useState(center);
+  const [position, setPosition] = useState(location.geometry || center);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
@@ -39,6 +39,7 @@ function MapWithPlacesAutoComplete({ location }) {
     address: location?.address,
     name: location?.name,
     additional_info: location.additional_info || "",
+    geometry: location.geometry || center,
   });
 
   useEffect(() => {
@@ -61,6 +62,7 @@ function MapWithPlacesAutoComplete({ location }) {
       place_id: place_id,
       address: formatted_address,
       name: name,
+      geometry: newLocation,
     });
   };
 
@@ -91,6 +93,7 @@ function MapWithPlacesAutoComplete({ location }) {
               placeholder="Search your location"
               focusBorderColor="brandBlue"
               w="100%"
+              defaultValue={location?.address}
             />
           </Autocomplete>
         </InputGroup>
@@ -111,7 +114,7 @@ function MapWithPlacesAutoComplete({ location }) {
       </Box>
       <Box>
         <GoogleMap
-          center={center}
+          center={location.geometry || center}
           zoom={15}
           mapContainerStyle={containerStyle}
           options={{
