@@ -46,7 +46,7 @@ export default function DateAndTime({ date, time }) {
   return (
     <Box>
       <Box
-        borderWidth="2px"
+        borderWidth="1px"
         borderColor="brandBlue"
         color="brandBlue"
         p="20px"
@@ -56,7 +56,7 @@ export default function DateAndTime({ date, time }) {
         borderRadius="5px"
         mb="1rem"
       >
-        <Heading fontWeight="bold" as="h4" size="sm">
+        <Heading fontWeight="normal" as="h4" size="sm">
           {getLocalizedDate(startDate)} at {getLocalizedTime(startTime)}
         </Heading>
       </Box>
