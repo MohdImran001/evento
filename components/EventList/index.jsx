@@ -181,7 +181,7 @@ const EventList = () => {
                             router.push(`/app/events/${event._id}/edit`)
                           }
                         >
-                          Edit
+                          Manage
                         </MenuItem>
                         <MenuItem
                           icon={<Icon as={DocumentRemoveIcon} w={5} h={5} />}
