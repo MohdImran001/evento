@@ -38,21 +38,21 @@ const EventDetails = ({ eventData: event }) => {
         <Image
           src={event?.coverImageUrl}
           alt="cover-image"
-          maxH={{ base: "15rem", md: "27rem" }}
+          maxH={{ base: "15rem", md: "29rem" }}
           w={{ base: "100%" }}
           objectFit="cover"
           borderRadius="10px"
           mt="1rem"
         />
-        <Flex m="0 auto" maxW="50rem">
-          <Box mt="1rem" ml="1rem">
+        <Flex m="0 auto" maxW="61rem">
+          <Box mt="1rem" ml="0rem">
             <Text color="gray.400" fontWeight="bolder">
               YOU&apos;RE INVITED TO JOIN
             </Text>
           </Box>
           <Spacer />
           <Box bg="white" w="90px" boxShadow="base" mt="-2rem" mr="1rem">
-            <Center bg="brandOrange" w="100%" p="2px">
+            <Center bg="red.500" w="100%" p="2px">
               <Text fontSize={{ base: "xs" }} color="white">
                 <b>{event?.calendar?.month}</b>
               </Text>
@@ -69,126 +69,106 @@ const EventDetails = ({ eventData: event }) => {
         </Flex>
       </Box>
       {/* Evento Content */}
-      <Box p={{ base: "1rem" }} borderColor="gray.200" maxW="65rem" m="0 auto">
-        <Heading color="brand" size="3xl" mt="3rem">
-          {event?.title}
-        </Heading>
-        <Flex direction={{ base: "column" }} mt="2rem" experimental_spaceY={2}>
-          <Flex experimental_spaceX={2}>
-            <Box>
-              <Icon as={CalendarIcon} color="gray.500" w={5} h={5} />
-            </Box>
-            <Text
-              fontSize={{ base: "md" }}
-              color="gray.500"
-              as="span"
-              mt="0rem"
-            >
-              {event?.localizedDate}
-            </Text>
-          </Flex>
-          <Flex experimental_spaceX={2}>
-            <Box>
-              <Icon as={ClockIcon} color="gray.500" w={5} h={5} />
-            </Box>
-            <Text
-              fontSize={{ base: "md" }}
-              color="gray.500"
-              as="span"
-              mt="0rem"
-            >
-              {event?.localizedTime}
-            </Text>
-          </Flex>
-          <Flex experimental_spaceX={2}>
-            <Box>
-              <Icon as={LocationMarkerIcon} color="gray.500" w={5} h={5} />
-            </Box>
-            <Text fontSize={{ base: "md" }} color="gray.500" as="span" ml="6px">
-              <a href={getMapUrl(event?.location)}>{event?.location?.name}</a>
-            </Text>
-          </Flex>
-        </Flex>
-
-        <Flex justifyContent="space-between" alignItems="center">
-          <Box w="45%">
-            {/* Evento Description */}
-            <Box>
-              <Box ml="-1rem">
-                <ReadOnlyEditor content={event?.about} />
+      <Box p={{ base: "1rem" }} borderColor="gray.200" maxW="63rem" m="0 auto">
+        <Box>
+          <Heading color="brand" size="3xl" mt="3rem">
+            {event?.title}
+          </Heading>
+          <Flex
+            direction={{ base: "column" }}
+            mt="2rem"
+            experimental_spaceY={2}
+          >
+            <Flex experimental_spaceX={2}>
+              <Box>
+                <Icon as={CalendarIcon} color="gray.500" w={5} h={5} />
               </Box>
-            </Box>
+              <Text
+                fontSize={{ base: "md" }}
+                color="gray.500"
+                as="span"
+                mt="0rem"
+              >
+                {event?.localizedDate}
+              </Text>
+            </Flex>
+            <Flex experimental_spaceX={2}>
+              <Box>
+                <Icon as={ClockIcon} color="gray.500" w={5} h={5} />
+              </Box>
+              <Text
+                fontSize={{ base: "md" }}
+                color="gray.500"
+                as="span"
+                mt="0rem"
+              >
+                {event?.localizedTime}
+              </Text>
+            </Flex>
+            <Flex experimental_spaceX={2}>
+              <Box>
+                <Icon as={LocationMarkerIcon} color="gray.500" w={5} h={5} />
+              </Box>
+              <Text
+                fontSize={{ base: "md" }}
+                color="gray.500"
+                as="span"
+                ml="6px"
+              >
+                <a href={getMapUrl(event?.location)}>{event?.location?.name}</a>
+              </Text>
+            </Flex>
+          </Flex>
+        </Box>
 
-            {/* Location Map */}
-            <Box mt="3rem">
-              <Heading as="h5" size="md">
-                Location
-              </Heading>
-              <br />
-              <AspectRatio ratio={16 / 9}>
-                <iframe
-                  src={getEmbedMapUrl(event?.location?.place_id)}
-                  alt="demo"
-                />
-              </AspectRatio>
-              <Flex mt="2rem">
-                <Box>
-                  <Icon
-                    as={LocationMarkerIcon}
-                    color="brandOrange"
-                    w={5}
-                    h={5}
-                  />
-                </Box>
-                <Text
-                  fontSize={{ base: "md" }}
-                  color="brandOrange"
-                  as="span"
-                  ml="6px"
-                >
-                  <a href={getMapUrl(event.location)}>
-                    {event?.location?.name}
-                  </a>
-                </Text>
-              </Flex>
+        {/* Evento Description */}
+        <Box>
+          <Heading as="h5" size="md" mt="5rem">
+            Event Info
+          </Heading>
+          <Box ml="-1rem" color="black.500" pt="1rem">
+            <ReadOnlyEditor content={event?.about} />
+          </Box>
+        </Box>
+
+        <Flex justifyContent="space-between">
+          {/* Join Event */}
+          <Box mt="3rem" w="54%">
+            <Heading as="h5" size="md">
+              Join Event
+            </Heading>
+            <Text fontSize="sm" mt="10px">
+              Hello! To join the event, please register below.
+            </Text>
+            <br />
+            {/* Form Container */}
+            <Box p="1rem" border="1px" borderColor="#EEEEEE">
+              <Formik
+                initialValues={{
+                  name: "",
+                  email: "",
+                }}
+                validationSchema={Yup.object({
+                  name: Yup.string()
+                    .max(15, "Must be 15 characters or less")
+                    .required("Required"),
+                  email: Yup.string()
+                    .email("Oops! There is a mistake in the email")
+                    .required("Required"),
+                })}
+                onSubmit={async (values) => {
+                  const message = await registerAttendee(values, event._id);
+                  setRegistered(true);
+                }}
+              >
+                <Form>
+                  <RegistrationForm isRegistered={registered} />
+                </Form>
+              </Formik>
             </Box>
           </Box>
+
           <Box w="40%">
-            {/* Join Event */}
-            <Box mt="3rem">
-              <Heading as="h5" size="md">
-                Join Event
-              </Heading>
-              <Text fontSize="sm" mt="10px">
-                Hello! To join the event, please register below.
-              </Text>
-              <br />
-              {/* Form Container */}
-              <Box p="1rem" border="1px" borderColor="#EEEEEE">
-                <Formik
-                  initialValues={{
-                    name: "",
-                    email: "",
-                  }}
-                  validationSchema={Yup.object({
-                    name: Yup.string()
-                      .max(15, "Must be 15 characters or less")
-                      .required("Required"),
-                    email: Yup.string()
-                      .email("Oops! There is a mistake in the email")
-                      .required("Required"),
-                  })}
-                  onSubmit={async (values) => {
-                    const message = await registerAttendee(values, event._id);
-                    setRegistered(true);
-                  }}
-                >
-                  <Form>
-                    <RegistrationForm isRegistered={registered} />
-                  </Form>
-                </Formik>
-              </Box>
-            </Box>
             {/* Hosts */}
             <Box mt="3rem">
               <Heading as="h5" size="md">
@@ -234,6 +214,35 @@ const EventDetails = ({ eventData: event }) => {
                   </Box>
                 </Flex>
               </Box>
+            </Box>
+
+            {/* Location Map */}
+            <Box mt="3rem">
+              <Heading as="h5" size="md">
+                Location
+              </Heading>
+              <br />
+              <AspectRatio ratio={16 / 9}>
+                <iframe
+                  src={getEmbedMapUrl(event?.location?.place_id)}
+                  alt="demo"
+                />
+              </AspectRatio>
+              <Flex mt="2rem">
+                <Box>
+                  <Icon as={LocationMarkerIcon} color="red.500" w={5} h={5} />
+                </Box>
+                <Text
+                  fontSize={{ base: "md" }}
+                  color="red.500"
+                  as="span"
+                  ml="6px"
+                >
+                  <a href={getMapUrl(event.location)}>
+                    {event?.location?.name}
+                  </a>
+                </Text>
+              </Flex>
             </Box>
           </Box>
         </Flex>
