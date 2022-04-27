@@ -42,6 +42,8 @@ import {
   copyUrl,
 } from "core/utils/event";
 
+import GuestsCount from "components/Guests/GuestsCount";
+
 import useEvents from "./useEvents";
 import useNewEvent from "lib/hooks/mutations/useNewEvent";
 import useDeleteEvent from "lib/hooks/mutations/useDeleteEvent";
@@ -141,7 +143,9 @@ const EventList = () => {
                       </Box>
                     </Flex>
                   </Td>
-                  <Td>0</Td>
+                  <Td>
+                    <GuestsCount event_id={event?._id} />
+                  </Td>
                   <Td>{event?.status}</Td>
                   <Td>
                     <Menu>
