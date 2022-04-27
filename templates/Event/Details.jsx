@@ -21,15 +21,15 @@ import {
   ClockIcon,
 } from "@heroicons/react/solid";
 
-import { getMapUrl, getEmbedMapUrl } from "core/utils/event";
-import registerAttendee from "lib/event/api/register-attendee";
-
 import ReadOnlyEditor from "components/Editor";
-
 import RegistrationForm from "components/Event/RegistrationForm";
+
+import { getMapUrl, getEmbedMapUrl } from "core/utils/event";
+import useRegisterAttendee from "lib/hooks/mutations/useRegisterAttendee";
 
 const EventDetails = ({ eventData: event }) => {
   const [registered, setRegistered] = useState(false);
+  const registerAttendee = useRegisterAttendee(event._id);
 
   return (
     <Box>
@@ -157,7 +157,7 @@ const EventDetails = ({ eventData: event }) => {
                     .required("Required"),
                 })}
                 onSubmit={async (values) => {
-                  const message = await registerAttendee(values, event._id);
+                  await registerAttendee.mutateAsync(values);
                   setRegistered(true);
                 }}
               >
