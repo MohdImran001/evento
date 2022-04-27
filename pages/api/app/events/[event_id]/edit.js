@@ -5,7 +5,7 @@ import Event from "core/db/models/Event";
 const secret = process.env.NEXTAUTH_SECRET;
 
 /**
- *
+ * Modify event data
  * @param {*} req
  * @param {*} res
  * @returns - success/error

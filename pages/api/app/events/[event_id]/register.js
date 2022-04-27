@@ -1,25 +1,37 @@
 import dbConnect from "core/db/connect";
 import Attendee from "core/db/models/Attendee";
 
-// Add check for POST request, and validate data
+/**
+ * Register an attendee for the event
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
+
 export default async function handler(req, res) {
-  const { eventId, name, email } = req.body;
+  // Only HTTP: POST method is allowed to update data
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method Not Allowed" });
+  }
+
+  const { event_id } = req.query;
+  const { formData } = req.body;
 
   try {
     await dbConnect();
-    let attendee = await Attendee.findOne({ email: email });
+    let attendee = await Attendee.findOne({ email: formData.email });
 
-    if (attendee && attendee.events.indexOf(eventId) >= 0) {
+    if (attendee && attendee.events.indexOf(event_id) >= 0) {
       return res
         .status(200)
         .json({ message: "You're already registered for the event" });
     }
 
     if (!attendee) {
-      attendee = new Attendee({ name, email });
+      attendee = new Attendee(formData);
     }
 
-    attendee.events.push(eventId);
+    attendee.events.push(event_id);
     await attendee.save();
 
     res.status(201).json({

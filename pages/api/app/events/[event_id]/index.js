@@ -3,6 +3,12 @@ import isAuthorized from "core/utils/authorized";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
+/**
+ * Return event info
+ * @param {*} req
+ * @param {*} res
+ * @returns
+ */
 export default async function handler(req, res) {
   const { event_id } = req.query;
   const { sub: user_id } = await getToken({ req, secret });
