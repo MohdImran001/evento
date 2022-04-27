@@ -42,7 +42,7 @@ import {
   copyUrl,
 } from "core/utils/event";
 
-import GuestsCount from "components/Guests/GuestsCount";
+import GuestsCount from "components/Guests/Count";
 
 import useEvents from "./useEvents";
 import useNewEvent from "lib/hooks/mutations/useNewEvent";

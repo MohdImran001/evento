@@ -21,10 +21,14 @@ export default async function handler(req, res) {
   if (onlyCount === "1") {
     // Returns only count
     const count = await Attendee.find({ events: event_id }).count();
-    res.status(200).send({ count: count });
+    return res.status(200).send({ count: count });
   }
 
   // Returns all documents
-  const docs = await Attendee.find({ events: event_id }, "name email").lean();
-  res.status(200).send({ docs: docs });
+  const docs = await Attendee.find(
+    { events: event_id },
+    "name email updatedAt"
+  ).lean();
+
+  res.status(200).send({ guests: docs });
 }
