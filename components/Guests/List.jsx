@@ -13,10 +13,8 @@ import {
 
 import useGuests from "lib/hooks/queries/useGuests";
 
-import { getLocalizedTime, getLocalizedDate } from "core/utils/date";
-
 export default function GuestsList({ event_id }) {
-  const { isLoading, isError, guests, error } = useGuests(event_id);
+  const { isLoading, isError, guests } = useGuests(event_id);
 
   if (isError) {
     return (
@@ -36,8 +34,6 @@ export default function GuestsList({ event_id }) {
             <Tr>
               <Th>Name</Th>
               <Th>Email</Th>
-              <Th>Registered on (Date)</Th>
-              <Th>Registered on (Time)</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -45,10 +41,11 @@ export default function GuestsList({ event_id }) {
               <Tr _hover={{ shadow: "lg" }} key={guest?._id}>
                 <Td>{guest?.name}</Td>
                 <Td>{guest?.email}</Td>
-                <Td>{getLocalizedDate(guest?.updatedAt)}</Td>
-                <Td>{getLocalizedTime(guest?.updatedAt)}</Td>
               </Tr>
             ))}
+            <Tr>
+              <Td></Td>
+            </Tr>
           </Tbody>
         </Table>
       </TableContainer>
