@@ -42,7 +42,11 @@ export default function EventGuestsTemplate({ event_id }) {
           <GuestsList event_id={event_id} />
         </Box>
 
-        <AddNewGuestsModal isOpen={isOpen} onClose={onClose} />
+        <AddNewGuestsModal
+          isOpen={isOpen}
+          onClose={onClose}
+          event_id={event_id}
+        />
       </TabNavigation>
     </AppLayout>
   );

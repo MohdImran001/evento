@@ -43,9 +43,7 @@ export default function GuestsList({ event_id }) {
                 <Td>{guest?.email}</Td>
               </Tr>
             ))}
-            <Tr>
-              <Td></Td>
-            </Tr>
+            <Tr></Tr>
           </Tbody>
         </Table>
       </TableContainer>
