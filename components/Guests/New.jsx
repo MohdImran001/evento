@@ -44,10 +44,10 @@ export default function AddNewGuestsModal({ isOpen, onClose, event_id }) {
         })}
         onSubmit={(values) => {
           registerAttendee.mutate(values, {
-            onSettled: () => {
+            onSuccess: () => {
               setTimeout(() => {
                 registerAttendee.reset();
-              }, 5000);
+              }, 3000);
             },
           });
         }}
