@@ -37,10 +37,7 @@ export default async function handler(req, res) {
   }
 
   // Returns all documents
-  const docs = await Attendee.find(
-    { events: event_id },
-    "name email updatedAt"
-  ).lean();
+  const docs = await Attendee.find({ events: event_id }, "-events").lean();
 
   res.status(200).send({ guests: docs });
 }
