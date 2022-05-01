@@ -4,7 +4,7 @@ import dbConnect from "core/db/connect";
 import Event from "core/db/models/Event";
 import { formatEventData } from "core/utils/event";
 
-import EventEditTemplate from "templates/Event/Settings/Edit";
+import EventEditTemplate from "templates/Event/Manage/Edit";
 
 export default function Edit({ event }) {
   if (!event) {

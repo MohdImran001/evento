@@ -1,4 +1,4 @@
-import EventAccessTemplate from "templates/Event/Settings/Access";
+import EventAccessTemplate from "templates/Event/Manage/Access";
 
 export default function Access({ event_id }) {
   return <EventAccessTemplate event_id={event_id} />;

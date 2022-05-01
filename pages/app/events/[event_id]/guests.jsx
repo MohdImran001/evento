@@ -1,4 +1,4 @@
-import EventGuestsTemplate from "templates/Event/Settings/Guests";
+import EventGuestsTemplate from "templates/Event/Manage/Guests";
 
 export default function GuestsSettings({ event_id }) {
   return <EventGuestsTemplate event_id={event_id} />;
