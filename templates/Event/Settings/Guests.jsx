@@ -8,6 +8,8 @@ import GuestsList from "components/Guests/List";
 import GuestsCount from "components/Guests/Count";
 import AddNewGuestsModal from "components/Guests/New";
 
+import { API_BASE_URL } from "core/constants";
+
 export default function EventGuestsTemplate({ event_id }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -32,7 +34,15 @@ export default function EventGuestsTemplate({ event_id }) {
             >
               add guests
             </Button>
-            <Button ml="1rem" leftIcon={<Icon as={DownloadIcon} />}>
+            <Button
+              ml="1rem"
+              leftIcon={<Icon as={DownloadIcon} />}
+              onClick={() =>
+                window.open(
+                  `${API_BASE_URL}/events/${event_id}/guests/download`
+                )
+              }
+            >
               download csv
             </Button>
           </Box>
