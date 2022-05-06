@@ -35,6 +35,35 @@ const LocationSchema = new mongoose.Schema({
   },
 });
 
+const AccessSchema = new mongoose.Schema({
+  acceptRegistrations: {
+    /* Boolean indicating whether accept registration or not*/
+    type: Boolean,
+    default: true,
+  },
+
+  maxCapacity: {
+    /*  upper limit for the number of registrations
+        registration will be closed when this limit is reached
+    */
+
+    type: Number,
+    default: undefined,
+  },
+  isPaid: {
+    /* Indicates whether the event is paid or free */
+
+    type: Boolean,
+    default: false,
+  },
+  approvalRequired: {
+    /* If this is true, host will manually approve/reject guests */
+
+    type: Boolean,
+    default: false,
+  },
+});
+
 const EventSchema = new mongoose.Schema({
   _id: {
     /* A unique id for this event */
@@ -100,6 +129,15 @@ const EventSchema = new mongoose.Schema({
       geometry: undefined,
     },
   },
+  access: {
+    type: AccessSchema,
+    default: {
+      acceptRegistrations: true,
+      maxCapacity: null,
+      isPaid: false,
+      approvalRequired: false,
+    },
+  },
   createdAt: {
     /* Timestamp when the event is created */
 
@@ -107,6 +145,8 @@ const EventSchema = new mongoose.Schema({
     default: Date.now,
     immutable: true,
   },
+
+  // Resolve this bug, its not getting updated properly
   updatedAt: {
     /* Timestamp when the event is updated */
 

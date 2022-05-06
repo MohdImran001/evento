@@ -3,8 +3,20 @@ import { useState } from "react";
 import { Box, Heading, Text, Flex, Switch, Icon } from "@chakra-ui/react";
 import { UserAddIcon } from "@heroicons/react/solid";
 
-export default function Registration() {
-  const [checked, setChecked] = useState(true);
+import useEventAccess from "lib/hooks/mutations/useEventAccess";
+
+export default function Registration({ event_id, access }) {
+  const [checked, setChecked] = useState(access?.acceptRegistrations);
+  const updateAccessProps = useEventAccess(event_id);
+
+  const handleSwitchChange = () => {
+    updateAccessProps.mutate(
+      { acceptRegistrations: !checked },
+      {
+        onSuccess: () => setChecked(!checked),
+      }
+    );
+  };
 
   return (
     <>
@@ -29,7 +41,8 @@ export default function Registration() {
             mt="3px"
             isChecked={checked}
             colorScheme="green"
-            onChange={() => setChecked(!checked)}
+            onChange={handleSwitchChange}
+            isDisabled={updateAccessProps.isLoading}
           />
         </Flex>
         <Text color="gray.500" fontSize="sm" pt="2rem">

@@ -41,6 +41,10 @@ export const formatEventData = (event) => {
       ...event.location,
       _id: event.location._id.toString(),
     },
+    access: {
+      ...event.access,
+      _id: event.access?._id.toString() || "",
+    },
   };
 };
 
