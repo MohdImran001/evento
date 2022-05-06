@@ -12,6 +12,8 @@ import {
   Center,
   Icon,
   AspectRatio,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 import {
@@ -30,28 +32,35 @@ import useRegisterAttendee from "lib/hooks/mutations/useRegisterAttendee";
 const EventDetails = ({ eventData: event }) => {
   const [registered, setRegistered] = useState(false);
   const registerAttendee = useRegisterAttendee(event._id);
+  const acceptRegistrations = event?.access?.acceptRegistrations;
 
   return (
     <Box>
       {/* Evento Cover Image */}
-      <Box maxW="70rem" m="0 auto">
+      <Box maxW="70rem" m="0 auto" px={{ md: "1rem" }}>
         <Image
           src={event?.coverImageUrl}
           alt="cover-image"
-          maxH={{ base: "15rem", md: "29rem" }}
+          maxH={{ base: "20rem", md: "29rem" }}
           w={{ base: "100%" }}
           objectFit="cover"
-          borderRadius="10px"
-          mt="1rem"
+          borderRadius={{ md: "10px" }}
+          mt={{ md: "1rem" }}
         />
-        <Flex m="0 auto" maxW="61rem">
+        <Flex m="0 auto" maxW="61rem" px={{ base: "1rem", md: "0rem" }}>
           <Box mt="1rem" ml="0rem">
             <Text color="gray.400" fontWeight="bolder">
               YOU&apos;RE INVITED TO JOIN
             </Text>
           </Box>
           <Spacer />
-          <Box bg="white" w="90px" boxShadow="base" mt="-2rem" mr="1rem">
+          <Box
+            bg="white"
+            w="90px"
+            boxShadow="base"
+            mt="-2rem"
+            mr={{ base: "1rem", md: "3rem" }}
+          >
             <Center bg="red.500" w="100%" p="2px">
               <Text fontSize={{ base: "xs" }} color="white">
                 <b>{event?.calendar?.month}</b>
@@ -131,44 +140,60 @@ const EventDetails = ({ eventData: event }) => {
           </Box>
         </Box>
 
-        <Flex justifyContent="space-between">
+        <Flex
+          justifyContent="space-between"
+          direction={{ base: "column", md: "row" }}
+        >
           {/* Join Event */}
-          <Box mt="3rem" w="54%">
+          <Box mt="3rem" w={{ base: "100%", md: "54%" }}>
             <Heading as="h5" size="md">
               Join Event
             </Heading>
-            <Text fontSize="sm" mt="10px">
-              Hello! To join the event, please register below.
-            </Text>
-            <br />
-            {/* Form Container */}
-            <Box p="1rem" border="1px" borderColor="#EEEEEE">
-              <Formik
-                initialValues={{
-                  name: "",
-                  email: "",
-                }}
-                validationSchema={Yup.object({
-                  name: Yup.string()
-                    .max(15, "Must be 15 characters or less")
-                    .required("Required"),
-                  email: Yup.string()
-                    .email("Oops! There is a mistake in the email")
-                    .required("Required"),
-                })}
-                onSubmit={async (values) => {
-                  await registerAttendee.mutateAsync(values);
-                  setRegistered(true);
-                }}
-              >
-                <Form>
-                  <RegistrationForm isRegistered={registered} />
-                </Form>
-              </Formik>
-            </Box>
+            {!acceptRegistrations && (
+              <Box mt="2rem">
+                <Alert status="warning" variant="left-accent">
+                  <AlertIcon />
+                  The registrations for this event are closed. If you think this
+                  is a mistake, please contact the host.
+                </Alert>
+              </Box>
+            )}
+            {acceptRegistrations && (
+              <Box>
+                <Text fontSize="sm" mt="10px">
+                  Hello! To join the event, please register below.
+                </Text>
+                <br />
+                {/* Form Container */}
+                <Box p="1rem" border="1px" borderColor="#EEEEEE">
+                  <Formik
+                    initialValues={{
+                      name: "",
+                      email: "",
+                    }}
+                    validationSchema={Yup.object({
+                      name: Yup.string()
+                        .max(15, "Must be 15 characters or less")
+                        .required("Required"),
+                      email: Yup.string()
+                        .email("Oops! There is a mistake in the email")
+                        .required("Required"),
+                    })}
+                    onSubmit={async (values) => {
+                      await registerAttendee.mutateAsync(values);
+                      setRegistered(true);
+                    }}
+                  >
+                    <Form>
+                      <RegistrationForm isRegistered={registered} />
+                    </Form>
+                  </Formik>
+                </Box>
+              </Box>
+            )}
           </Box>
 
-          <Box w="40%">
+          <Box w={{ base: "100%", md: "40%" }}>
             {/* Hosts */}
             <Box mt="3rem">
               <Heading as="h5" size="md">
