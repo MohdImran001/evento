@@ -47,6 +47,7 @@ import GuestsCount from "components/Guests/Count";
 import useEvents from "./useEvents";
 import useNewEvent from "lib/hooks/mutations/useNewEvent";
 import useDeleteEvent from "lib/hooks/mutations/useDeleteEvent";
+import { BASE_URL } from "core/constants";
 
 const EventList = () => {
   const router = useRouter();
@@ -159,19 +160,14 @@ const EventList = () => {
                         <MenuItem
                           icon={<Icon as={ExternalLinkIcon} w={5} h={5} />}
                           onClick={() =>
-                            window.open(
-                              "http://localhost:3000/" + event._id,
-                              "_blank"
-                            )
+                            window.open(`${BASE_URL}/${event._id}`, "_blank")
                           }
                         >
                           View
                         </MenuItem>
                         <MenuItem
                           icon={<Icon as={ClipboardCopyIcon} w={5} h={5} />}
-                          onClick={() =>
-                            copyUrl("http://localhost:3000/" + event._id)
-                          }
+                          onClick={() => copyUrl(`${BASE_URL}/${event._id}`)}
                         >
                           Copy URL
                         </MenuItem>

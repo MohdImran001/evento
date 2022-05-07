@@ -10,7 +10,7 @@ import {
 import { DocumentDuplicateIcon } from "@heroicons/react/solid";
 
 import { BASE_URL } from "core/constants";
-import { getLocalizedDate, getLocalizedTime } from "core/utils/event";
+import { copyUrl, getLocalizedDate, getLocalizedTime } from "core/utils/event";
 
 import useEvent from "lib/hooks/queries/useEvent";
 
@@ -44,7 +44,10 @@ export default function Header({ event_id }) {
           >
             {BASE_URL + `/${event?._id}`}
           </Text>
-          <IconButton icon={<Icon as={DocumentDuplicateIcon} w={5} h={5} />} />
+          <IconButton
+            icon={<Icon as={DocumentDuplicateIcon} w={5} h={5} />}
+            onClick={() => copyUrl(`${BASE_URL}/${event_id}`)}
+          />
         </Flex>
       </Box>
     </Skeleton>
