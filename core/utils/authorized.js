@@ -6,7 +6,7 @@ import Event from "core/db/models/Event";
 export default async function isAuthorized(event_id, user_id) {
   await dbConnect();
 
-  const event = await Event.findById(event_id).lean();
+  const event = await Event.findById(event_id, "hosts").lean();
   if (!event) {
     return null;
   }
