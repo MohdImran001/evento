@@ -21,3 +21,17 @@
 .ql-editor blockquote {
     font-size: 1.3em;
 }
+
+#nprogress .bar {
+    background: rgb(240, 85, 55);
+    height: 5px;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px rgb(240, 85, 55), 0 0 5px rgb(240, 85, 55);
+}
+
+#nprogress .spinner .spinner-icon {
+    border-top-color: rgb(240, 85, 55);
+    border-left-color: rgb(240, 85, 55);
+}
